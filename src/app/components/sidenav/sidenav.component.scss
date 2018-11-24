@@ -1,0 +1,245 @@
+.nav-side-menu .brand {
+    background-color: #23282e;
+    line-height: 50px;
+    display: block;
+    text-align: center;
+    font-size: 14px;
+}
+
+.nav-side-menu .toggle-btn {
+    display: none;
+}
+
+.nav-side-menu ul,
+.nav-side-menu li {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+    line-height: 35px;
+    cursor: pointer;
+}
+
+.nav-side-menu ul :not(collapsed) .arrow:before,
+.nav-side-menu li :not(collapsed) .arrow:before {
+    font-family: FontAwesome;
+    content: "\f078";
+    display: inline-block;
+    padding-left: 10px;
+    padding-right: 10px;
+    vertical-align: middle;
+}
+
+.nav-side-menu ul .active,
+.nav-side-menu li .active {
+    background: #0d0d0d;
+}
+
+.nav-side-menu li .sub-menu li.active {
+    /* color: #d19b3d;
+	   */
+    background: #1F2229;
+    border-bottom: none;
+}
+
+.nav-side-menu ul .sub-menu li.active a,
+.nav-side-menu li .sub-menu li.active a {
+    color: #d19b3d;
+}
+
+.nav-side-menu ul .sub-menu li:focus,
+.nav-side-menu li .sub-menu li:focus {
+    outline: none;
+}
+
+.nav-side-menu ul li.active123 {
+    background: #1F2229;
+    color: #fff !important;
+}
+
+.nav-side-menu ul li a.active {
+    color: #fff !important;
+    border-bottom: none !important;
+}
+
+
+/* .sub-menu li.active {
+		background:#000;
+		color: #fff !important; 
+	} */
+
+.nav-side-menu ul .sub-menu li,
+.nav-side-menu li .sub-menu li {
+    background-color: #1F2229;
+    border: none;
+    line-height: 28px;
+    /* border-bottom: 1px solid #23282e; */
+    margin-left: 0px;
+    font-size: 14px!important;
+    color: #ccc;
+}
+
+.nav-side-menu ul .sub-menu li:hover,
+.nav-side-menu li .sub-menu li:hover {
+    background-color: #020203;
+}
+
+
+/* .nav-side-menu ul .sub-menu li:before,
+	.nav-side-menu li .sub-menu li:before {
+	  font-family: FontAwesome;
+	  content: "\f105";
+	  display: inline-block;
+	  padding-left: 10px;
+	  padding-right: 10px;
+	  vertical-align: middle;
+	} */
+
+.nav-side-menu li {
+    /*padding: 7px 0px 0px 0px;*/
+    /* border-left: 3px solid #2e353d; */
+    border-bottom: 1px solid #1F2229;
+}
+
+.nav-side-menu li a:hover {
+    color: #fff !important;
+}
+
+.nav-side-menu li a.active {
+    color: #fff !important;
+}
+
+.nav-side-menu li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 15px;
+    display: block;
+    padding: 7px 7px 7px 0px
+}
+
+.nav-side-menu li a i {
+    padding-left: 10px;
+    width: 20px;
+    padding-right: 20px;
+}
+
+.nav-side-menu li:hover {
+    /* border-left: 3px solid #d19b3d; */
+    background-color: #000;
+    color: #fff;
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    -ms-transition: all 1s ease;
+    transition: all 1s ease;
+}
+
+@media (max-width: 767px) {
+    .nav-side-menu {
+        position: relative;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .nav-side-menu .toggle-btn {
+        display: block;
+        cursor: pointer;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        z-index: 10 !important;
+        padding: 3px;
+        background-color: #ffffff;
+        color: #000;
+        width: 40px;
+        text-align: center;
+    }
+    .brand {
+        text-align: left !important;
+        font-size: 22px;
+        padding-left: 20px;
+        line-height: 50px !important;
+    }
+}
+
+.nav-side-menu {
+    overflow: auto;
+    font-size: 12px;
+    font-weight: 200;
+    background-color: #2C303B;
+    height: calc(100vh - 90px);
+    color: #fff;
+    position: fixed;
+    width: 16.66666667%;
+}
+
+@media (min-width: 767px) {
+    .nav-side-menu .menu-list .menu-content {
+        display: block;
+    }
+}
+
+@media only screen and (min-width: 1224px) {
+    /* Styles */
+    .nav-side-menu li a {
+        text-decoration: none;
+        color: #fff;
+        font-size: 16px;
+    }
+}
+
+
+/* width */
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+
+/* Track */
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px
+}
+
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px
+}
+
+
+/* Handle on hover */
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.nav-side-menu li a div {
+    padding-left: 10px;
+}
+
+.left_sidebar {
+    .panel-group {
+        .icon {
+            color: #8B8F93;
+        }
+        .panel.activeHeading {
+            background: #393d46;
+            .icon {
+                color: #fff!important;
+            }
+        }
+    }
+    .panel {
+        .panel-collapse {
+            .panel-body {
+                a.active {
+                    color: #fff;
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}

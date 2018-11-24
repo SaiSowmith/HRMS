@@ -1,0 +1,53 @@
+<section id="main-content">
+    <!--header start-->
+
+    <!--header end-->
+    <!--sidebar start-->
+
+    <!--sidebar end-->
+    <!--main content start-->
+    <section class="wrapper">
+        <div class="table-agile-info">
+            <div class="panel panel-default">
+                <div class="panel-heading ellipsis">
+                    Employees Applied Leaves
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped b-t b-light">
+                        <thead>
+                            <tr>
+                                <th>Emp. ID</th>
+                                <th>Emp. Name</th>
+                                <th>From Date</th>
+                                <th>To Date</th>
+                                <th>Total Leaves</th>
+                                <th>Reason</th>
+                                <th class="actions-width">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let leave of results5; let i= index">
+                                <td>{{leave.EmpId}}</td>
+                                <td>{{leave.EmpName}}</td>
+                                <td>{{leave.StartDate|date}}</td>
+                                <td>{{leave.EndDate|date}}</td>
+                                <td>{{leave.TotalDays}}</td>
+                                <td>{{leave.ReasonForLeave}}</td>
+                                <td><button type="submit" [disabled]="leave.Status == 'Approved'" class="btn btn-success"
+                                        (click)="updateLeave(i)"><i class="fa fa-check-square-o"></i> Approve</button>
+                                    <button type="submit" [disabled]="leave.Status == 'Rejected'" class="btn btn-danger"
+                                        (click)="saveSelectedEmpId(i);saveIndex(i);openDialog();"><i class="fa fa-times"></i>reject
+                                    </button></td>
+
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!--main content end-->
+</section>

@@ -1,0 +1,41 @@
+<section id="main-content">
+    <section class="wrapper">
+        <div class="table-agile-info">
+            <div class="panel panel-default">
+
+                <div class="panel-heading ellipsis">
+                    Leave Balance Report
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-striped b-t b-light">
+
+                        <thead>
+                            <tr>
+                                <th>Emp.ID</th>
+                                <th>Emp. DOJ</th>
+                                <th>Job Type</th>
+                                <th>Earned Leaves</th>
+                                <th>Casual Leaves</th>
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr *ngFor="let item of result1">
+                                <td>{{item.EmpId}}</td>
+                                <td>{{item.EmpDOJ}}</td>
+                                <td>{{item.JobType}}</td>
+                                <td>{{item.EL}}</td>
+                                <td>{{item.CL}}</td>
+
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</section>

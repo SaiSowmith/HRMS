@@ -1,0 +1,53 @@
+<section id="main-content">
+
+
+    <section class="wrapper">
+        <form ngNativeValidate [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
+
+            <app-date-picker formControlName="fromDate" placeholder="Enter The From Date" [(ngModel)]="reports.fromDate"
+                format="YYYY-MM-DD"></app-date-picker>
+            <app-date-picker formControlName="toDate" placeholder="Enter The To Date" [(ngModel)]="reports.toDate"
+                format="YYYY-MM-DD"></app-date-picker>
+
+
+
+
+            <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">
+                Submit
+            </button>
+        </form>
+        <div class="table-agile-info">
+            <div class="panel panel-default">
+
+                <div class="panel-heading ellipsis">
+                    Leave Reports
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-striped b-t b-light">
+
+                        <thead>
+                            <tr>
+                                <th>Emp. ID</th>
+                                <th>Emp. Name</th>
+                                <th>Total Leaves</th>
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr *ngFor="let item of result2">
+                                <td>{{item.EmpId}}</td>
+                                <td>{{item.EmpName}}</td>
+                                <td>{{item.TotalDays}}</td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</section>

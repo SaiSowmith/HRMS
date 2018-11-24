@@ -1,0 +1,32 @@
+<div class="nav-side-menu sidebar_css" id="sidebar">
+    <div class="menu-list left_sidebar">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default" (click)="setDashboard()" [ngClass]="{'activeHeading': selectedMenuActive == 'dashboard'}">
+                <div class="panel-heading">
+                    <h4 class="panel-title dashboard-title">
+                        <a routerLink="dashboard">Dashboard <div class="icon icon-mb-dashboard pull-right"></div></a>
+                    </h4>
+                </div>
+            </div>
+            <div class="panel panel-default" *ngFor="let list of urlValues;let i = index" (click)="sideMenuActiveFun(list.urlLink,list,i)"
+                [ngClass]="{'activeHeading': selectedMenuActive == list.urlLink}">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#{{list.urlName}}">
+                            {{list.urlName}} <div class="{{list.mbIcon}}"></div>
+                        </a>
+                    </h4>
+                </div>
+                <div id="{{list.urlName}}" class="panel-collapse collapse" [ngClass]="{'in': selectedMenuName == list.urlName}">
+                    <div class="panel-body">
+                        <div *ngFor="let cList of list.childs;let j = index">
+                            <a routerLink={{cList.urlLink}} routerLinkActive="active">
+                                {{cList.urlName}}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
