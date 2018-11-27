@@ -45,6 +45,7 @@ export class LoginService {
   }
 
   updateLeaves(key, statusUpdateObj) {
+    console.log(key)
     const req = this.http.patch('https://fir-demo-e52b2.firebaseio.com/LMS/' + key + '/.json', statusUpdateObj)
       .subscribe(
         res => {

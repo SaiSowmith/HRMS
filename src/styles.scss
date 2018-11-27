@@ -56,7 +56,7 @@ body {
     font-family: 'Quicksand', sans-serif!important;
 }
 
-.mybox-table {
+.lms-table {
     border: 1px solid #ccc;
     color: #73818f;
     margin: 0;
@@ -64,9 +64,17 @@ body {
     max-width: 100%;
     border-spacing: 0;
     border-collapse: initial;
+    font-family: 'Quicksand', sans-serif!important;
     thead {
         border: 1px solid #ccc;
         font-weight: 400;
+        tr {
+            th {
+                font-size: 0.9em;
+                color: #303745;
+                border-top: none !important;
+            }
+        }
         th {
             background-color: #F8F9F9;
             padding: 8px;

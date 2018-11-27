@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
 import { User } from 'src/app/models/employees-applied-leaves';
 import { Reject } from 'src/app/models/reject';
 import { LeaveService } from 'src/app/services/leave.service';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatTableDataSource, MatPaginator } from '@angular/material';
 import { DialogData } from 'src/app/models/test';
 import { Inject } from '@angular/core';
 
@@ -45,7 +45,10 @@ export class EmployeesAppliedLeavesComponent implements OnInit {
 
     public dialog: MatDialog) {
   }
-
+  dataSource;
+  ELEMENT_DATA = [];
+  displayedColumns: string[] = ['id', 'name', 'fromdate', 'todate', 'totalleaves','reason','actions'];
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   saveIndex(data) {
     //  alert("index number = "+data+" data == "+this.results3);
     this.selectedIndex = this.results3[data];
@@ -142,7 +145,7 @@ export class EmployeesAppliedLeavesComponent implements OnInit {
       error => {
         //  this.toastr.warning(JSON.stringify(error.error.error));
       });
-  }
+    }
 
   ngOnInit() {
     this.EmpId = localStorage.getItem("EmpId");
@@ -199,6 +202,9 @@ export class EmployeesAppliedLeavesComponent implements OnInit {
               this.results3.push(key);
 
             });
+            this.ELEMENT_DATA = this.results5;
+            this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
+            this.dataSource.paginator = this.paginator;
             console.log("result LMS == ", this.results5);
             console.log("result keys LMS == ", this.results3);
 
@@ -227,6 +233,7 @@ export class EmployeesAppliedLeavesComponent implements OnInit {
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
+import { element } from '@angular/core/src/render3/instructions';
 //import { ToastrService } from 'ngx-toastr';
 
 @Component({
