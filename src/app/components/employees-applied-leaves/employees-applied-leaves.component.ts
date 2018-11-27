@@ -47,7 +47,7 @@ export class EmployeesAppliedLeavesComponent implements OnInit {
   }
   dataSource;
   ELEMENT_DATA = [];
-  displayedColumns: string[] = ['id', 'name', 'fromdate', 'todate', 'totalleaves','reason','actions'];
+  displayedColumns: string[] = ['id', 'name', 'fromdate', 'todate', 'totalleaves', 'reason', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   saveIndex(data) {
     //  alert("index number = "+data+" data == "+this.results3);
@@ -108,7 +108,7 @@ export class EmployeesAppliedLeavesComponent implements OnInit {
     this.loginService.updateLeaves(this.results3[selectedIndex], this.statusUpdate);
 
     this.sendEmailForApprovedLeaves(selectedIndex);
-    this.router.navigate(['main/employeeleaves']);
+    this.router.navigate(['admin/employees-applied-leaves']);
 
 
 
@@ -145,7 +145,7 @@ export class EmployeesAppliedLeavesComponent implements OnInit {
       error => {
         //  this.toastr.warning(JSON.stringify(error.error.error));
       });
-    }
+  }
 
   ngOnInit() {
     this.EmpId = localStorage.getItem("EmpId");
@@ -330,7 +330,7 @@ export class RejectLeave implements OnInit {
   }
 
   getErrorReason() {
-    return this.formGroup.get('reject').hasError('required') ? 'This FIELD is required' :
+    return this.formGroup.get('reject').hasError('required') ? 'Reason is required' :
       this.formGroup.get('reject').hasError('minlength') ? 'Min length shd be 5' : this.formGroup.get('reject').hasError('maxlength') ? 'Max Length shd be 50' : '';
   }
   onSubmit(post) {
@@ -392,7 +392,7 @@ export class RejectLeave implements OnInit {
                 }
               );
 
-            this.router.navigate(['main/employeeleaves']);
+            this.router.navigate(['admin/employees-applied-leaves']);
 
           },
 
@@ -403,7 +403,7 @@ export class RejectLeave implements OnInit {
         }
 
 
-      this.router.navigate(['main/employeeleaves']);
+      this.router.navigate(['admin/employees-applied-leaves']);
       this.dialogRef.close();
 
 

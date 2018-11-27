@@ -34,7 +34,7 @@ export class LoginService {
 
 
 
-//LMS APIs
+  //LMS APIs
 
   getLeave(EmpId) {
     return this.http.get(`https://fir-demo-e52b2.firebaseio.com/LMS.json?orderBy="EmpId"&equalTo="${EmpId}"`)
@@ -69,9 +69,9 @@ export class LoginService {
 
 
 
-  
 
-//LBS APIs
+
+  //LBS APIs
 
   getLBS(EmpId) {
     return this.http.get(`https://fir-demo-e52b2.firebaseio.com/LBS.json?orderBy="EmpId"&equalTo="${EmpId}"`)

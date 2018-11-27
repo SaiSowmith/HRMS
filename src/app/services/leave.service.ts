@@ -26,7 +26,7 @@ export class LeaveService {
   getReport(from, to) {
     return this.httpClient.get(`https://fir-demo-e52b2.firebaseio.com/LMS.json?orderBy="StartDate"&startAt="${from}"&endAt="${to}"`)
   }
-//
+  //
   getLeave() {
     return this.httpClient.get(`https://fir-demo-e52b2.firebaseio.com/LMS.json?orderBy="Status"&equalTo="Approved"`)
   }
@@ -52,7 +52,7 @@ export class LeaveService {
   }
 
 
-//LBS APIs
+  //LBS APIs
 
   getLbsData(EmpId) {
     return this.httpClient.get(`https://fir-demo-e52b2.firebaseio.com/LBS.json?orderBy="EmpId"&equalTo="${EmpId}"`).map((res: Response) => {

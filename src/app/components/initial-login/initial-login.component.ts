@@ -33,7 +33,11 @@ export class InitialLoginComponent implements OnInit {
     public dialog: MatDialog) {
 
   }
-  openDialog(): void {
+
+
+
+  ngOnInit() {
+
 
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog3, {
       width: '500px'
@@ -45,10 +49,6 @@ export class InitialLoginComponent implements OnInit {
       console.log('The dialog was closed');
 
     });
-  }
-
-
-  ngOnInit() {
 
   }
 

@@ -1,8 +1,8 @@
 <mat-toolbar color="primary">
-  <span class="fill-remaining-space">Password Change</span>
+  <span>Change Password</span>
 </mat-toolbar>
-
-<div class="container">
+<br>
+<div>
   <form ngNativeValidate [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
 
 
@@ -10,26 +10,29 @@
       <input matInput formControlName="newPassword" type="password" placeholder="New Password" id="newPassword"
         [(ngModel)]="initLogin.newPassword" name="newPassword" required>
       <mat-error *ngIf="!formGroup.controls['newPassword'].valid && formGroup.controls['newPassword'].touched">
-        new Password is required
+        New Password is required
       </mat-error>
     </mat-form-field>
-
+    <br>
+    <br>
     <mat-form-field class="fullwidth">
       <input matInput formControlName="confirmPassword" type="password" placeholder="Confirm Password" id="confirmPassword"
         [(ngModel)]="initLogin.confirmPassword" name="confirmPassword" required>
       <mat-error *ngIf="!formGroup.controls['confirmPassword'].valid && formGroup.controls['confirmPassword'].touched">
-        confirm Password is required
+        Confirm Password is required
       </mat-error>
     </mat-form-field>
-
+    <br>
 
     <div class="form-element">
+      <br>
       <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">Submit</button>
       <button mat-button (click)="onNoClick()">Cancel</button>
-
+      <br>
     </div>
 
   </form>
+  <br>
 </div>
 
 <!-- <ng-template #forminfo>
