@@ -92,44 +92,44 @@
                 </footer> -->
                 <div class="mat-elevation-z8">
                     <table mat-table [dataSource]="dataSource" class="lms-table">
-                  
-                      <!-- Position Column -->
-                      <ng-container matColumnDef="fromdate">
-                        <th mat-header-cell *matHeaderCellDef> From Date</th>
-                        <td mat-cell *matCellDef="let element"> {{element.StartDate}} </td>
-                      </ng-container>
-                  
-                      <ng-container matColumnDef="todate">
-                        <th mat-header-cell *matHeaderCellDef> To Date </th>
-                        <td mat-cell *matCellDef="let element"> {{element.EndDate}} </td>
-                      </ng-container>
-                  
-                      <ng-container matColumnDef="totalleaves">
-                        <th mat-header-cell *matHeaderCellDef> Total Leaves </th>
-                        <td mat-cell *matCellDef="let element"> {{element.TotalDays}} </td>
-                      </ng-container>
-                  
-                      <ng-container matColumnDef="typeofleave">
-                        <th mat-header-cell *matHeaderCellDef> Type Of Leave </th>
-                        <td mat-cell *matCellDef="let element"> {{element.LeaveType}} </td>
-                      </ng-container>
 
-                      <ng-container matColumnDef="reasonforleave">
-                        <th mat-header-cell *matHeaderCellDef> Reason For Leave</th>
-                        <td mat-cell *matCellDef="let element"> {{element.ReasonForLeave}} </td>
-                      </ng-container>
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="fromdate">
+                            <th mat-header-cell *matHeaderCellDef> From Date</th>
+                            <td mat-cell *matCellDef="let element"> {{element.StartDate}} </td>
+                        </ng-container>
 
-                      <ng-container matColumnDef="status">
-                        <th mat-header-cell *matHeaderCellDef> Status </th>
-                        <td mat-cell *matCellDef="let element"> {{element.Status}} </td>
-                      </ng-container>
-                  
-                      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        <ng-container matColumnDef="todate">
+                            <th mat-header-cell *matHeaderCellDef> To Date </th>
+                            <td mat-cell *matCellDef="let element"> {{element.EndDate}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="totalleaves">
+                            <th mat-header-cell *matHeaderCellDef> Total Leaves </th>
+                            <td mat-cell *matCellDef="let element"> {{element.TotalDays}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="typeofleave">
+                            <th mat-header-cell *matHeaderCellDef> Type Of Leave </th>
+                            <td mat-cell *matCellDef="let element"> {{element.LeaveType}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="reasonforleave">
+                            <th mat-header-cell *matHeaderCellDef> Reason For Leave</th>
+                            <td mat-cell *matCellDef="let element"> {{element.ReasonForLeave}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="status">
+                            <th mat-header-cell *matHeaderCellDef> Status </th>
+                            <td mat-cell *matCellDef="let element"> {{element.Status}} </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                     </table>
-                  
+
                     <mat-paginator [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons></mat-paginator>
-                  </div>
+                </div>
             </div>
         </div>
     </section>

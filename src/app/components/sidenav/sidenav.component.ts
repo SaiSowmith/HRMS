@@ -61,7 +61,7 @@ export class SidenavComponent implements OnInit {
         childs: [
           { 'urlLink': 'leaves', 'urlName': 'Apply Leave' },
           // {'urlLink': 'tms/device_ingest', 'urlName': 'Device Ingest'},
-          { 'urlLink': 'employees-applied-leaves', 'urlName': 'Employee Applied Leave List' }
+          { 'urlLink': 'employees-applied-leaves', 'urlName': 'Reportees Leave List' }
         ]
       },
 

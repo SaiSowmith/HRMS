@@ -28,10 +28,10 @@ export class DashboardComponent implements OnInit {
     this.RMName = localStorage.getItem("RMName");
     this.RMID = localStorage.getItem("RMID");
 
-    this.BloodGroup=localStorage.getItem("BloodGroup");
-    this.ContactNumber=localStorage.getItem("ContactNumber");
-    this.Designation=localStorage.getItem("Designation");
-    this.Team=localStorage.getItem("Team");
+    this.BloodGroup = localStorage.getItem("BloodGroup");
+    this.ContactNumber = localStorage.getItem("ContactNumber");
+    this.Designation = localStorage.getItem("Designation");
+    this.Team = localStorage.getItem("Team");
     console.log("In Dashboard/Profile", this.EmpId, this.EmpName, this.EMail, this.EmpDOJ)
   }
 

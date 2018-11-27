@@ -1,62 +1,59 @@
 <mat-toolbar color="primary">
-  <span class="fill-remaining-space">Apply Leave</span>
+  <span>Apply Leave</span>
 </mat-toolbar>
 
-<div class="container">
+<div>
+  <br>
+  <form ngNativeValidate [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)">
 
-  <form ngNativeValidate [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
-
+    <mat-form-field>
+      <mat-select formControlName="leaveType" placeholder="Leave Type" [(ngModel)]="leave.leaveType" id="leaveType">
+        <mat-option *ngFor="let leaveType of leaveTypes" [value]="leaveType">{{leaveType}}</mat-option>
+      </mat-select>
+    </mat-form-field>
     <p>
-      <mat-form-field>
-        <mat-select formControlName="leaveType" placeholder="Leave Type" [(ngModel)]="leave.leaveType" id="leaveType">
-          <mat-option *ngFor="let leaveType of leaveTypes" [value]="leaveType">{{leaveType}}</mat-option>
-        </mat-select>
+      <mat-form-field style="width:200px !important">
+        <input matInput formControlName="fromDate" [max]="maxDate" [matDatepickerFilter]="myFilter" [matDatepicker]="picker"
+          placeholder="From Date" id="fromDate" [(ngModel)]="leave.fromDate" name="fromDate" required>
+        <!-- <mat-error *ngIf="!fromDate">*From Date is required</mat-error>   -->
+        <mat-error *ngIf="!formGroup.controls['fromDate'].valid && formGroup.controls['fromDate'].touched">
+          from date is required
+        </mat-error>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field style="width:200px !important">
+        <input matInput formControlName="toDate" [max]="maxDate" [matDatepickerFilter]="myFilter" [matDatepicker]="picker2"
+          placeholder="To Date" id="toDate" [(ngModel)]="leave.toDate" name="toDate" required>
+        <!-- <mat-error *ngIf="!toDate">*To Date is required</mat-error>         -->
+        <mat-error *ngIf="!formGroup.controls['toDate'].valid && formGroup.controls['toDate'].touched">
+          to date is required
+        </mat-error>
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
       </mat-form-field>
     </p>
-    <mat-form-field class="fullwidth">
-      <input matInput formControlName="fromDate" [min]="minDate" [max]="maxDate" [matDatepickerFilter]="myFilter"
-        [matDatepicker]="picker" placeholder="From Date" id="fromDate" [(ngModel)]="leave.fromDate" name="fromDate"
-        required>
-      <!-- <mat-error *ngIf="!fromDate">*From Date is required</mat-error>   -->
-      <mat-error *ngIf="!formGroup.controls['fromDate'].valid && formGroup.controls['fromDate'].touched">
-        from date is required
-      </mat-error>
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-
-    <mat-form-field class="fullwidth">
-      <input matInput formControlName="toDate" [min]="minDate" [max]="maxDate" [matDatepickerFilter]="myFilter"
-        [matDatepicker]="picker2" placeholder="To Date" id="toDate" [(ngModel)]="leave.toDate" name="toDate" required>
-      <!-- <mat-error *ngIf="!toDate">*To Date is required</mat-error>         -->
-      <mat-error *ngIf="!formGroup.controls['toDate'].valid && formGroup.controls['toDate'].touched">
-        to date is required
-      </mat-error>
-      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-      <mat-datepicker #picker2></mat-datepicker>
-    </mat-form-field>
-
-    <p>
-      <mat-form-field class="fullwidth">
-        <textarea matInput formControlName="reason" placeholder="Reason" id="reason" [(ngModel)]="leave.reason" name="reason"
-          type="text" required></textarea>
-        <!-- <mat-error *ngIf="!reason">*Reason is required</mat-error>         -->
-        <!-- <mat-error *ngIf="!formGroup.controls['reason'].valid && formGroup.controls['reason'].touched">
+    <mat-form-field>
+      <textarea matInput formControlName="reason" placeholder="Reason" id="reason" [(ngModel)]="leave.reason" name="reason"
+        type="text" required></textarea>
+      <!-- <mat-error *ngIf="!reason">*Reason is required</mat-error>         -->
+      <!-- <mat-error *ngIf="!formGroup.controls['reason'].valid && formGroup.controls['reason'].touched">
                   reason is required
                 </mat-error> -->
-        <mat-error *ngIf="!formGroup.controls['reason'].valid">
-          {{getErrorReason()}}
-        </mat-error>
-      </mat-form-field>
-    </p>
-
-    <mat-form-field class="fullwidth">
+      <mat-error *ngIf="!formGroup.controls['reason'].valid">
+        {{getErrorReason()}}
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
       <input matInput formControlName="totalLeaves" placeholder="Total Leaves" id="totalLeaves" [(ngModel)]="leave.totalLeaves"
         name="totalLeaves" type="number" required>
       <mat-error *ngIf="!formGroup.controls['totalLeaves'].valid && formGroup.controls['totalLeaves'].touched">
         totalLeaves is required
       </mat-error>
     </mat-form-field>
+    <br>
     <!-- <div class="form-element">
               <mat-checkbox formControlName="validate" value="1">Name min. 3 characters</mat-checkbox>
             </div> -->
@@ -65,11 +62,12 @@
             </p> -->
 
     <div class="form-element">
+      <br>
       <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">Submit</button>
       <button mat-button (click)="onNoClick()">Cancel</button>
 
     </div>
-
+    <br>
   </form>
 </div>
 
