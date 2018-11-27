@@ -12,12 +12,12 @@
                 [ngClass]="{'activeHeading': selectedMenuActive == list.urlLink}">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#{{list.urlName}}">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#{{list.id}}">
                             {{list.urlName}} <div class="{{list.mbIcon}}"></div>
                         </a>
                     </h4>
                 </div>
-                <div id="{{list.urlName}}" class="panel-collapse collapse" [ngClass]="{'in': selectedMenuName == list.urlName}">
+                <div id="{{list.id}}" class="panel-collapse collapse" [ngClass]="{'in': selectedMenuName == list.id}">
                     <div class="panel-body">
                         <div *ngFor="let cList of list.childs;let j = index">
                             <a routerLink={{cList.urlLink}} routerLinkActive="active">

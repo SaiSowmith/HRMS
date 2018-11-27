@@ -980,7 +980,7 @@ ul.top-menu>li>a:focus {
     background: #ddede0;
     border-top-right-radius: 2px;
     border-top-left-radius: 2px;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     text-align: center;
 }
 
