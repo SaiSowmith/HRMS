@@ -474,7 +474,7 @@ export class ApplyLeave implements OnInit {
   getDays( dDate1, dDate2) {
     if(dDate1!=null){
 
-      if(dDate2>dDate1){
+      if(dDate2=>dDate1){
     var iWeeks, iDateDiff, iAdjust = 0;
     if (dDate2 < dDate1) return -1; // error code if dates transposed
     var iWeekday1 = dDate1.getDay(); // day of week
