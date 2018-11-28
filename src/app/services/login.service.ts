@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http'
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class LoginService {
   EmpId: any;
 
   constructor(
-    private http: HttpClient) {
+    private http: HttpClient,public toastr: ToastrService) {
   }
 
   //Employee APIs
@@ -51,7 +52,8 @@ export class LoginService {
         res => {
           this.results2 = res;
           console.log("UPDATE", res);
-          alert("Details have been updated Successfully! ")
+          this.toastr.success("leave approved success");
+
         },
         err => {
           alert("Error Occured!!! \n Check the Console");

@@ -173,9 +173,10 @@ export class DialogOverviewExampleDialog3 implements OnInit {
     console.log("Leave Submit", this.initLogin);
 
     if (this.initLogin.confirmPassword === this.initLogin.newPassword) {
+      var encodedString = window.btoa(this.initLogin.confirmPassword); // returns "bXktbmFtZS0x"
 
       this.applyLeave = {
-        "Password": this.initLogin.newPassword,
+        "Password": encodedString,
         "IsActivate": "Y"
         // "StartDate": this.leave.fromDate,
         // RMID: localStorage.getItem("RMID"),

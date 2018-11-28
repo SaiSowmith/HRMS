@@ -85,7 +85,7 @@
                                         class="fa fa-check-square-o"></i> Approve</button>
                                 <button type="submit" *ngIf="element.Status == 'Pending' || element.Status == 'Rejected'"
                                     [disabled]="element.Status == 'Rejected'" class="btn btn-danger" (click)="saveSelectedEmpId(i);saveIndex(i);openDialog();"><i
-                                        class="fa fa-times"></i>Reject
+                                        class="fa fa-check-square-o"></i>      Reject&nbsp;&nbsp;&nbsp;&nbsp;  
                                 </button> </td>
                         </ng-container>
 

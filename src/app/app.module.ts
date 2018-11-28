@@ -48,6 +48,7 @@ import { DatePickerComponent } from './components/date-picker/date-picker.compon
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InitialLoginComponent, DialogOverviewExampleDialog3 } from './components/initial-login/initial-login.component';
 
+import { ToastrModule } from 'ngx-toastr';
 
 const routes: Routes = [
   {
@@ -152,7 +153,10 @@ const routes: Routes = [
     MatTooltipModule,
     MatStepperModule,
     MatDatepickerModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(
+      { preventDuplicates: true}
+    )
   ],
   providers: [],
   entryComponents: [

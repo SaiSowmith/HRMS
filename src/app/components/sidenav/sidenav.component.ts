@@ -59,9 +59,9 @@ export class SidenavComponent implements OnInit {
       {
         'urlLink': 'admin/leavemanagement', 'urlName': 'Leave Management', 'id': 'LeaveManagement', 'mbIcon': 'icon icon-mb-terminal pull-right',
         childs: [
-          { 'urlLink': 'leaves', 'urlName': 'Apply Leave' },
+          { 'urlLink': 'leaves', 'urlName': 'My Leaves' },
           // {'urlLink': 'tms/device_ingest', 'urlName': 'Device Ingest'},
-          { 'urlLink': 'employees-applied-leaves', 'urlName': 'Reportees Leave List' }
+          { 'urlLink': 'employees-applied-leaves', 'urlName': 'Employee Leaves' }
         ]
       },
 

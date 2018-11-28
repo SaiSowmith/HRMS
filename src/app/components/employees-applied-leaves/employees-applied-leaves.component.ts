@@ -365,13 +365,13 @@ export class RejectLeave implements OnInit {
             this.lbsObj = this.results11;
             console.log("Before  update leaves = " + this.lbsObj);
             console.log("leave Type for update balance ", this.leaveType);
-            if (this.leaveType == "EL") {
+            if (this.leaveType == "Earned Leave") {
               this.lbsObj.EL += this.noOfLeaves;
               this.lbsUpdate = {
                 "EL": this.lbsObj.EL
               }
 
-            } else if (this.leaveType == "CL") {
+            } else if (this.leaveType == "Casual Leave") {
               this.lbsObj.CL = this.lbsObj.CL + this.noOfLeaves;
               this.lbsUpdate = {
                 "CL": this.lbsObj.CL
@@ -391,7 +391,7 @@ export class RejectLeave implements OnInit {
                   console.log("ERROR!!!!", err);
                 }
               );
-
+            
             this.router.navigate(['admin/employees-applied-leaves']);
 
           },

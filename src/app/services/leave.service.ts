@@ -22,6 +22,11 @@ export class LeaveService {
       return res;
     });
   }
+  cancelLeaveRequest(documentId){
+    return this.httpClient.delete('https://fir-demo-e52b2.firebaseio.com/LMS/'+documentId+'.json').map((res: Response) => {
+      return res;
+    });
+  }
 
   getReport(from, to) {
     return this.httpClient.get(`https://fir-demo-e52b2.firebaseio.com/LMS.json?orderBy="StartDate"&startAt="${from}"&endAt="${to}"`)

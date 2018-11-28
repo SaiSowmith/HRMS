@@ -96,12 +96,12 @@
                         <!-- Position Column -->
                         <ng-container matColumnDef="fromdate">
                             <th mat-header-cell *matHeaderCellDef> From Date</th>
-                            <td mat-cell *matCellDef="let element"> {{element.StartDate}} </td>
+                            <td mat-cell *matCellDef="let element"> {{element.StartDate|date}} </td>
                         </ng-container>
 
                         <ng-container matColumnDef="todate">
                             <th mat-header-cell *matHeaderCellDef> To Date </th>
-                            <td mat-cell *matCellDef="let element"> {{element.EndDate}} </td>
+                            <td mat-cell *matCellDef="let element"> {{element.EndDate|date}} </td>
                         </ng-container>
 
                         <ng-container matColumnDef="totalleaves">
@@ -116,13 +116,30 @@
 
                         <ng-container matColumnDef="reasonforleave">
                             <th mat-header-cell *matHeaderCellDef> Reason For Leave</th>
-                            <td mat-cell *matCellDef="let element"> {{element.ReasonForLeave}} </td>
+                            <td mat-cell *matCellDef="let element"> 
+                            <div class="ellipses" title="{{element.ReasonForLeave}}">
+                                        {{element.ReasonForLeave}} 
+                            </div>
+                            </td>
                         </ng-container>
-
                         <ng-container matColumnDef="status">
                             <th mat-header-cell *matHeaderCellDef> Status </th>
-                            <td mat-cell *matCellDef="let element"> {{element.Status}} </td>
+                            <td mat-cell *matCellDef="let element; let i = index;"> {{element.Status}}
+                            </td>
                         </ng-container>
+                        <ng-container matColumnDef="action">
+                                <th mat-header-cell *matHeaderCellDef> Action </th>
+
+
+                                <td mat-cell *matCellDef="let element; let i = index;">
+                                    
+                                        <button type="submit" *ngIf="element.Status == 'Pending'" 
+                                       class="btn btn-success" (click)="cancelLeaveRequest(i)"><i
+                                            class="fa fa-check-square-o"></i> Cancel</button>
+                                    
+                                </td>
+                            </ng-container>
+                        
 
                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

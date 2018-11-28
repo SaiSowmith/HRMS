@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private loginService: LoginService,
-    private router: Router) { }
+    private router: Router,public toastr: ToastrService) { }
 
   login() {
     console.log("before password = " + this.user.password);
@@ -35,14 +36,26 @@ export class LoginComponent implements OnInit {
     this.loginService.getEmployee(this.user.email, this.user.password)
       .subscribe((data: any) => {
         console.log("Employee", Object.keys(data).length);
-
-        if (Object.keys(data).length > 0) {
+//        console.log("encript simple--- ",encodedString);
+        //console.log("decodedString simple--- ",decodedString);
+       if (Object.keys(data).length > 0) {
           console.log("Employee", data);
           console.log("before");
           Object.keys(data).forEach(key => {
             this.employeeDetails = data[key];
             console.log("from UI= " + this.user.password + " from db== ", this.employeeDetails.Password)
-            if (this.user.password === this.employeeDetails.Password) {
+
+            var encodedString = window.btoa(this.user.password); // returns "bXktbmFtZS0x"
+            console.log("encripti pass from UI  - ",encodedString);
+            console.log("encripti pass from DB  - ",this.employeeDetails.Password);
+            var decodedString = window.atob( encodedString );  // returns "my-name-1"
+            console.log("decript pass from UI  - ",decodedString);
+
+            var decodedStringFromDB = window.atob( this.employeeDetails.Password );  // returns "my-name-1"
+            console.log("decript pass from DB  - ",decodedStringFromDB);
+            
+            
+            if (encodedString=== this.employeeDetails.Password) {
 
               // if(this.employeeDetails.password===inputPassword){
               localStorage.setItem("EmpId", this.employeeDetails.EmpId);
@@ -69,10 +82,11 @@ export class LoginComponent implements OnInit {
 
               } else {
                 this.router.navigate(['/admin/dashboard']);
+                this.toastr.success("LoggedIn Successfully");
               }
             } else {
               console.log("come to else ");
-              alert("Invalid password");
+              this.toastr.error("Invalid Password Creditionals");
             }
             //this.router.navigate(['/main']);
             // }else{
@@ -84,12 +98,12 @@ export class LoginComponent implements OnInit {
 
         } else {
 
-          alert("Invalid user name  ");
+          this.toastr.error("Invalid User Creditionals");
 
         }
       });
-  }
 
+  }
   ngOnInit() {
     //this.loginService.postLBS();
   }
