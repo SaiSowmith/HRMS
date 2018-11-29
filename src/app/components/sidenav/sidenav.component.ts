@@ -66,7 +66,13 @@ export class SidenavComponent implements OnInit {
   loadSidebarChanges() {
     if (localStorage.getItem("Role") == "Admin") {
       this.urlValues = [
-
+        {
+          'urlLink': 'admin/leavemanagement', 'urlName': 'Leave Management', 'id': 'LeaveManagement', 'mbIcon': 'icon icon-mb-terminal pull-right',
+          childs: [
+            { 'urlLink': 'leaves', 'urlName': 'My Leaves' },
+            { 'urlLink': 'employees-applied-leaves', 'urlName': 'Employee Leaves' }
+          ]
+        },
         {
           'urlLink': 'admin/reportmanagement', 'urlName': 'Report Management', 'id': 'Reportmanagement', 'mbIcon': 'icon icon-mb-terminal pull-right',
           childs: [

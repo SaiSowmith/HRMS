@@ -73,8 +73,6 @@ export class ReportsComponent implements OnInit {
           console.log("REPORTS reportData ", this.reportData);
           //ADMIN
           if (localStorage.getItem("Role") == "Admin") {
-            alert("ADMIN")
-
             const list = {};
             this.reportData.forEach((emp, index) => {
               if (emp.Status == "Approved") {
@@ -101,7 +99,6 @@ export class ReportsComponent implements OnInit {
 
           //MANAGER
           if (localStorage.getItem("Role") == "Manager") {
-            alert("Manager")
             const list = {};
 
             this.reportData.forEach((emp, index) => {
@@ -130,7 +127,6 @@ export class ReportsComponent implements OnInit {
 
           //EMPLOYEE
           if (localStorage.getItem("Role") == "Employee") {
-            alert("Employee")
             const list = {};
 
             this.reportData.forEach((emp, index) => {
