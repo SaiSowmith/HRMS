@@ -418,40 +418,45 @@ export class ApplyLeave implements OnInit {
   }
 
 
-  getDays(dDate1, dDate2) {
-    if (dDate1 != null) {
+  getDays( dDate1, dDate2) {
+    if(dDate1!=null){
 
-      if (dDate2 > dDate1) {
-        var iWeeks, iDateDiff, iAdjust = 0;
-        if (dDate2 < dDate1) return -1; // error code if dates transposed
-        var iWeekday1 = dDate1.getDay(); // day of week
-        var iWeekday2 = dDate2.getDay();
-        iWeekday1 = (iWeekday1 == 0) ? 7 : iWeekday1; // change Sunday from 0 to 7
-        iWeekday2 = (iWeekday2 == 0) ? 7 : iWeekday2;
-        if ((iWeekday1 > 5) && (iWeekday2 > 5)) iAdjust = 1; // adjustment if both days on weekend
-        iWeekday1 = (iWeekday1 > 5) ? 5 : iWeekday1; // only count weekdays
-        iWeekday2 = (iWeekday2 > 5) ? 5 : iWeekday2;
+      if(dDate2=>dDate1){
+    var iWeeks, iDateDiff, iAdjust = 0;
+    if (dDate2 < dDate1) return -1; // error code if dates transposed
+    var iWeekday1 = dDate1.getDay(); // day of week
+    var iWeekday2 = dDate2.getDay();
+    iWeekday1 = (iWeekday1 == 0) ? 7 : iWeekday1; // change Sunday from 0 to 7
+    iWeekday2 = (iWeekday2 == 0) ? 7 : iWeekday2;
+    if ((iWeekday1 > 5) && (iWeekday2 > 5)) iAdjust = 1; // adjustment if both days on weekend
+    iWeekday1 = (iWeekday1 > 5) ? 5 : iWeekday1; // only count weekdays
+    iWeekday2 = (iWeekday2 > 5) ? 5 : iWeekday2;
 
-        // calculate differnece in weeks (1000mS * 60sec * 60min * 24hrs * 7 days = 604800000)
-        iWeeks = Math.floor((dDate2.getTime() - dDate1.getTime()) / 604800000)
+    // calculate differnece in weeks (1000mS * 60sec * 60min * 24hrs * 7 days = 604800000)
+    iWeeks = Math.floor((dDate2.getTime() - dDate1.getTime()) / 604800000)
 
-        if (iWeekday1 <= iWeekday2) {
-          iDateDiff = (iWeeks * 5) + (iWeekday2 - iWeekday1)
-        } else {
-          iDateDiff = ((iWeeks + 1) * 5) - (iWeekday1 - iWeekday2)
-        }
-
-        iDateDiff -= iAdjust // take into account both days on weekend
-        let totalDays = (iDateDiff + 1);
-        this.leave.totalLeaves = totalDays;
-        this.leave.totalLeavesCount="TotalLeaves : "+totalDays;
-        return totalDays; // add 1 because dates are inclusive
-      } else {
-        this.toastr.error("End Date Should be greater than Start Date ");
-
-      }
+    if (iWeekday1 <= iWeekday2) {
+      iDateDiff = (iWeeks * 5) + (iWeekday2 - iWeekday1)
+    } else {
+      iDateDiff = ((iWeeks + 1) * 5) - (iWeekday1 - iWeekday2)
     }
+
+    iDateDiff -= iAdjust // take into account both days on weekend
+    let totalDays=(iDateDiff + 1);
+    this.leave.totalLeavesCount="TotalLeaves : "+totalDays;
+    this.leave.totalLeaves=totalDays;
+    return totalDays; // add 1 because dates are inclusive
+  }else{
+    this.toastr.error("End Date Should be greater than Start Date ");
+
   }
+  }
+  }
+
+
+
+
+
 
 
   public updateLeaveBalance() {
