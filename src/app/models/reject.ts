@@ -1,6 +1,6 @@
 export class Reject {
-    constructor(
-      public reject?: String,
+  constructor(
+    public reject?: String,
 
-    ) {}
-  }
+  ) { }
+}

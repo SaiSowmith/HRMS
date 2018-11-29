@@ -1,37 +1,31 @@
 <mat-toolbar color="primary">
   <span>Reason for Rejection</span>
 </mat-toolbar>
+
 <div>
   <br>
-
   <form ngNativeValidate [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
 
-
     <mat-form-field class="fullwidth">
+
       <textarea matInput formControlName="reject" placeholder="Reject Reason" id="reject" [(ngModel)]="reject.reject"
-        name="reject" type="text" required></textarea>
-      <!-- <mat-error *ngIf="!reason">*Reason is required</mat-error>         -->
-      <!-- <mat-error *ngIf="!formGroup.controls['reason'].valid && formGroup.controls['reason'].touched">
-                    reason is required
-                  </mat-error> -->
+        name="reject" type="text" required>
+      </textarea>
+
       <mat-error *ngIf="!formGroup.controls['reject'].valid">
         {{getErrorReason()}}
       </mat-error>
+
     </mat-form-field>
     <br>
 
     <div class="form-element">
       <br>
-      <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">Submit</button>
+      <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">
+        Submit
+      </button>
       <button mat-button (click)="onNoClick()">Cancel</button>
-
     </div>
     <br>
   </form>
 </div>
-
-<!-- <ng-template #forminfo>
-    <div class="container">
-      {{ post | json }}
-    </div>
-  </ng-template> -->

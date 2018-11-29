@@ -1,113 +1,108 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatTableDataSource, MatPaginator } from '@angular/material';
 import { Leave } from 'src/app/models/leave';
 import { LeaveService } from 'src/app/services/leave.service';
 import { LoginService } from 'src/app/services/login.service';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatTableDataSource, MatPaginator } from '@angular/material';
 import { DialogData } from 'src/app/models/test';
-import { Inject } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-leave',
   templateUrl: './leave.component.html',
   styleUrls: ['./leave.component.scss']
 })
+
+
 export class LeaveComponent implements OnInit {
+
   EmpId: any;
   EmpName: any;
   EMail: any;
   EmpDOJ: any;
-  animal: string;
-  name: string;
+
   leave = new Leave();
-  minDate = new Date();
-  maxDate = new Date(2020, 0, 1);
-  results5: any = [];
-  results3: any = [];
-  documentKeys:any=[];
-  statusMessage: string;
+
+  leavesHistoryArray: any = [];
+  lbsData: any = [];
+  lbsUpdateData: any;
+  cancelRequestLbsData: any = [];
+
+  leavesDocumentIdArray: any = [];
   leaveType: String;
-  results6: any = [];
-  results11: any = [];
   keyId: string;
   lbsObj: any = [];
   lbsDocumentId: any;
-  lbsUpdate: any;
-  results2: any;
+  lbsUpdateObj: any;
 
+  dataSource;
+  ELEMENT_DATA = [];
+  displayedColumns: string[] = ['fromdate', 'todate', 'totalleaves', 'typeofleave', 'reasonforleave', 'status', 'action'];
 
   myFilter = (d: Date): boolean => {
     const day = d.getDay();
-    // Prevent Saturday and Sunday from being selected.
     return day !== 0 && day !== 6;
   }
-  dataSource;
-  ELEMENT_DATA = [];
-  displayedColumns: string[] = ['fromdate', 'todate', 'totalleaves', 'typeofleave', 'reasonforleave', 'status','action'];
 
 
-  constructor(private loginService: LoginService, private router: Router,
-    private leaveService: LeaveService, public dialog: MatDialog,public toastr: ToastrService) {
+  constructor(
+    private loginService: LoginService,
+    private router: Router,
+    private leaveService: LeaveService,
+    public dialog: MatDialog,
+    public toastr: ToastrService
+  ) { }
 
-
-  }
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   openDialog(): void {
-
     const dialogRef = this.dialog.open(ApplyLeave, {
       width: '500px'
     });
-
-
 
     dialogRef.afterClosed().subscribe(result => {
 
 
       console.log('The dialog was closed');
-      this.EmpId = localStorage.getItem("EmpId")
 
-      this.loadLBSData(this.EmpId);
-      this.loadAppliedLeavesData(this.EmpId);
+      this.loadLBSData(localStorage.getItem("EmpId"));
+      this.loadAppliedLeavesData(localStorage.getItem("EmpId"));
 
       this.router.navigate(['admin/leaves']);
-
-      this.animal = result;
 
     });
   }
 
 
   ngOnInit() {
-
-    // this.dataSource.paginator = this.paginator;
     this.EmpId = localStorage.getItem("EmpId")
 
     this.loadAppliedLeavesData(this.EmpId);
     this.loadLBSData(this.EmpId);
   }
+
   loadAppliedLeavesData(empId) {
-    
-    this.results5 = [];
+
+    this.leavesHistoryArray = [];
     this.dataSource = [];
     this.loginService.getLeave(empId)
       .subscribe(
         response => {
           if (response == null) {
-            this.statusMessage = " given details not found";
+            console.log("Given details not found");
           }
           else {
 
             var count = 0;
             Object.keys(response).forEach(key => {
-              this.documentKeys.push(key);
-              this.results5.push(response[key]);
-              this.ELEMENT_DATA = this.results5;
+              this.leavesDocumentIdArray.push(key);
+              this.leavesHistoryArray.push(response[key]);
+              this.ELEMENT_DATA = this.leavesHistoryArray;
               this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
               this.dataSource.paginator = this.paginator;
 
             });
-            console.log("result 5 data = ",this.results5);
+            console.log("result 5 data = ", this.leavesHistoryArray);
           }
         }),
 
@@ -118,104 +113,92 @@ export class LeaveComponent implements OnInit {
 
   }
 
-  cancelLeaveRequest(index){
-    let documentId = this.documentKeys[index];
-    console.log("result while cancel data = ",this.results5);
-    let localResult=this.results5;
-    this.leaveService.cancelLeaveRequest(documentId).subscribe(response=>{
+  cancelLeaveRequest(index) {
+    let documentId = this.leavesDocumentIdArray[index];
+    console.log("result while cancel data = ", this.leavesHistoryArray);
+    let localResult = this.leavesHistoryArray;
+    this.leaveService.cancelLeaveRequest(documentId).subscribe(response => {
       this.toastr.success("Leave cancelled  successfully ");
 
       this.leaveService.getLbsData(this.EmpId)
-      .subscribe(
-        response => {
+        .subscribe(
+          response => {
 
-          Object.keys(response).forEach(key => {
-            this.results11 = response[key];
-            console.log("LBS TEST Response ", response);
-            console.log("LBS TEST Key ", key);
-            console.log("LBS TEST Results11 ", this.results11);
+            Object.keys(response).forEach(key => {
+              this.cancelRequestLbsData = response[key];
+              console.log("LBS TEST Response ", response);
+              console.log("LBS TEST Key ", key);
+              console.log("LBS TEST cancelRequestLbsData ", this.cancelRequestLbsData);
 
-            // this.lbsDocumentId=this.result11;
-            // this.lbsObj=result11[response];
-            this.keyId = key;
+              this.keyId = key;
 
-          });
-          this.lbsDocumentId = this.keyId;
-          console.log("lbsDocID", this.lbsDocumentId)
-          // this.lbsObj=result[response];
-          this.lbsObj = this.results11;
-          console.log("Before  update leaves = " + this.lbsObj);
-          console.log("leave Type form result5 ", localResult);
-          
-          console.log("leave Type for update balance ",localResult[index].LeaveType);
-          if (localResult[index].LeaveType =="Earned Leave") {
-            this.lbsObj.EL += localResult[index].TotalDays;
-            this.lbsUpdate = {
-              "EL": this.lbsObj.EL
-            }
+            });
 
-          } else if (localResult[index].LeaveType =="Casual Leave") {
-            console.log("come to causual leave part");
-            this.lbsObj.CL = this.lbsObj.CL +localResult[index].TotalDays;
-            this.lbsUpdate = {
-              "CL": this.lbsObj.CL
+            this.lbsDocumentId = this.keyId;
 
-            }
-          }
-          console.log("after update leaves = " + this.lbsUpdate+ "   document Id = "+this.lbsDocumentId);
-          this.loginService.updateLBS(this.lbsDocumentId, this.lbsUpdate)
-            .subscribe(
-              res => {
-                this.results2 = res;
-                console.log("UPDATE", res);
+            console.log("lbsDocID", this.lbsDocumentId)
+            this.lbsObj = this.cancelRequestLbsData;
+            console.log("Before  update leaves = " + this.lbsObj);
+            console.log("leave Type form result5 ", localResult);
 
-                this.loadAppliedLeavesData(this.EmpId);
-
-                this.loadLBSData(this.EmpId);
-            
-                //   alert("Details have been updated Successfully! ")
-              },
-              err => {
-                // alert("Error Occured!!! \n Check the Console");
-                console.log("ERROR!!!!", err);
+            console.log("leave Type for update balance ", localResult[index].LeaveType);
+            if (localResult[index].LeaveType == "Earned Leave") {
+              this.lbsObj.EL += localResult[index].TotalDays;
+              this.lbsUpdateObj = {
+                "EL": this.lbsObj.EL
               }
-            );
-          
 
-        },
+            } else if (localResult[index].LeaveType == "Casual Leave") {
+              console.log("come to causual leave part");
+              this.lbsObj.CL = this.lbsObj.CL + localResult[index].TotalDays;
+              this.lbsUpdateObj = {
+                "CL": this.lbsObj.CL
 
-      ),
-      err => {
-        alert("ERROR!!! \n Check the Console")
-        console.log("Error occured", err);
-      }
+              }
+            }
+            console.log("after update leaves = " + this.lbsUpdateObj + "   document Id = " + this.lbsDocumentId);
+            this.loginService.updateLBS(this.lbsDocumentId, this.lbsUpdateObj)
+              .subscribe(
+                res => {
+                  this.lbsUpdateData = res;
+                  console.log("UPDATE", res);
 
-      //this.router.navigate(['admin/leaves']);
+                  this.loadAppliedLeavesData(this.EmpId);
 
+                  this.loadLBSData(this.EmpId);
+                },
+                err => {
+                  console.log("ERROR!!!!", err);
+                }
+              );
+          },
+        ),
+
+        err => {
+          alert("ERROR!!! \n Check the Console")
+          console.log("Error occured", err);
+        }
     });
-
-
   }
+
+
   loadLBSData(empId) {
     this.loginService.getLBS(empId)
       .subscribe(
         response => {
           console.log("Response", response)
           if (response == null) {
-            this.statusMessage = " given details not found";
+            console.log("Given detailsnot found");
           }
           else {
             var count = 0;
-            this.results6 = [];
+            this.lbsData = [];
             Object.keys(response).forEach(key => {
               console.log("leaves balace after re load=== ", response[key]);
-              this.results6.push(response[key]);
-              console.log("leaves balace after  result === ", this.results6);
-
-
-
+              this.lbsData.push(response[key]);
+              console.log("leaves balace after  result === ", this.lbsData);
             });
-            console.log("result after updates  == ", this.results6);
+            console.log("result after updates  == ", this.lbsData);
           }
         }),
 
@@ -223,19 +206,15 @@ export class LeaveComponent implements OnInit {
         alert("ERROR!!! \n Check the Console")
         console.log("Error occured", err);
       }
-
   }
+
+
   onSubmit() {
     console.log(this.leave)
   }
 
-
-  // displayedColumns: string[] = ['from', 'name', 'weight', 'symbol'];
-  // dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-
-
-
 }
+
 
 export interface PeriodicElement {
   name: string;
@@ -243,9 +222,6 @@ export interface PeriodicElement {
   weight: number;
   symbol: string;
 }
-
-
-
 
 const ELEMENT_DATA: PeriodicElement[] = [
   { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
@@ -271,77 +247,68 @@ const ELEMENT_DATA: PeriodicElement[] = [
 ];
 
 
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { Router, ActivatedRoute } from '@angular/router';
-import { DISABLED } from '../../../../node_modules/@angular/forms/src/model';
-import { disableDebugTools } from '../../../../node_modules/@angular/platform-browser';
 
-//import { ToastrService } from 'ngx-toastr';
+
+
+
+
+
+
+
+
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'ApplyLeave',
   templateUrl: 'leave-apply.html',
 })
 
+
 export class ApplyLeave implements OnInit {
 
   formGroup: FormGroup;
-  titleAlert: string = 'This field is required';
-  post: any = '';
 
   leave = new Leave();
-
-  minDate = new Date();
-  maxDate = new Date(2020, 0, 1);
-
-  myFilter = (d: Date): boolean => {
-    const day = d.getDay();
-    // Prevent Saturday and Sunday from being selected.
-    return day !== 0 && day !== 6;
-  }
 
   leaveTypes: string[] = [
     'Earned Leave', 'Casual Leave'];
   EmpName: string;
-  statusMessage: string;
-  results5: Object;
-  results3: any;
-  applyLeave: any;
-  results6: any = [];
-  closeStatusFlag:boolean=false;
+  applyLeaveObj: any;
+  closeStatusFlag: boolean = false;
+
+  minDate = new Date();
+  maxDate = new Date(2020, 0, 1);
+  myFilter = (d: Date): boolean => {
+    const day = d.getDay();
+    return day !== 0 && day !== 6;
+  }
+
   constructor(
 
     private loginService: LoginService,
     private leaveService: LeaveService,
     private formBuilder: FormBuilder,
-    private router: Router,
     public toastr: ToastrService,
-    // private toastr: ToastrService,
     public dialogRef: MatDialogRef<ApplyLeave>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
+
   onNoClick(): void {
-    this.closeStatusFlag=true;
+    this.closeStatusFlag = true;
     this.dialogRef.close();
   }
-  send() {
-  }
+
+
   ngOnInit() {
-
-
     this.createForm();
     this.setChangeValidate()
   }
 
 
   createForm() {
-    //let emailregex: RegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     this.formGroup = this.formBuilder.group({
-      // 'email': [null, [Validators.required, Validators.pattern(emailregex)], this.checkInUseEmail],
-      // 'name': [null, Validators.required],
-      // 'password': [null, [Validators.required, this.checkPassword]],
-      // 'description': [null, [Validators.required, Validators.minLength(5), Validators.maxLength(10)]],
       'leaveType': [null, Validators.required],
       'fromDate': [null, Validators.required],
       'toDate': [null, Validators.required],
@@ -349,9 +316,6 @@ export class ApplyLeave implements OnInit {
       'totalLeaves': [null, Validators.required],
       'validate': ''
     });
-
-    //this.formGroup.get('totalLeaves').disable();
-
   }
 
   setChangeValidate() {
@@ -359,7 +323,6 @@ export class ApplyLeave implements OnInit {
       (validate) => {
         if (validate == '1') {
           this.formGroup.get('reason').setValidators([Validators.required, Validators.minLength(10)]);
-          this.titleAlert = "You need to specify at least 10 characters";
         } else {
           this.formGroup.get('reason').setValidators(Validators.required);
         }
@@ -368,18 +331,13 @@ export class ApplyLeave implements OnInit {
     )
   }
 
+
   get name() {
     return this.formGroup.get('reason') as FormControl
   }
 
-  // checkPassword(control) {
-  //   let enteredPassword = control.value
-  //   let passwordCheck = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/;
-  //   return (!passwordCheck.test(enteredPassword) && enteredPassword) ? { 'requirements': true } : null;
-  // }
 
   checkInUseEmail(control) {
-    // mimic http database access
     let db = ['tony@gmail.com'];
     return new Observable(observer => {
       setTimeout(() => {
@@ -395,51 +353,46 @@ export class ApplyLeave implements OnInit {
     return this.formGroup.get('reason').hasError('required') ? 'This FIELD is required' :
       this.formGroup.get('reason').hasError('minlength') ? 'Min length shd be 2' : this.formGroup.get('reason').hasError('maxlength') ? 'Max Length shd be 150' : '';
   }
-  onSubmit(post) {
 
-    if(!this.closeStatusFlag){
-    this.post = post;
 
-    // alert("Thanks for submitting! Data: " + JSON.stringify(this.leave));
-    console.log("Leave Submit", this.leave);
-    var myDate = new Date(this.leave.fromDate.toString());
-    console.log("myDate =  ", myDate);
-    this.applyLeave = {
-      "StartDate": this.leave.fromDate,
-      "RMID": localStorage.getItem("RMID"),
-      "EndDate": this.leave.toDate,
-      "ReasonForLeave": this.leave.reason,
-      "TotalDays": this.leave.totalLeaves,
-      "EmpName": localStorage.getItem("EmpName"),
-      "Status": "Pending",
-      "EmpId": localStorage.getItem("EmpId"),
-      "LeaveType": this.leave.leaveType,
-      "RMName": localStorage.getItem("RMName"),
-      "Email": localStorage.getItem("EMail")
-      //"LeaveType":this.leave.
+  onSubmit() {
+
+    if (!this.closeStatusFlag) {
+      console.log("Leave Submit", this.leave);
+      var myDate = new Date(this.leave.fromDate.toString());
+      console.log("myDate =  ", myDate);
+
+      this.applyLeaveObj = {
+        "StartDate": this.leave.fromDate,
+        "RMID": localStorage.getItem("RMID"),
+        "EndDate": this.leave.toDate,
+        "ReasonForLeave": this.leave.reason,
+        "TotalDays": this.leave.totalLeaves,
+        "EmpName": localStorage.getItem("EmpName"),
+        "Status": "Pending",
+        "EmpId": localStorage.getItem("EmpId"),
+        "LeaveType": this.leave.leaveType,
+        "RMName": localStorage.getItem("RMName"),
+        "Email": localStorage.getItem("EMail")
+      }
+      console.log("leave Type= ", this.leave.leaveType);
+
+      this.leaveService.applyLeave(this.applyLeaveObj).subscribe((data: any) => {
+
+        this.sendEmailForApplyLeave();
+        console.log("before call  update balance --");
+
+        this.updateLeaveBalance();
+        this.toastr.success("Leave Applied successfully ");
+
+      },
+        error => {
+          console.log("Error in onSubmit", error);
+        });
     }
-    console.log("leave Type= ", this.leave.leaveType);
-    this.leaveService.applyLeave(this.applyLeave).subscribe((data: any) => {
-      //if ( data.name === true) {
-      //this.toastr.success(data.results);
-      this.sendEmailForApplyLeave();
-      console.log("before call  update balance --");
-
-      this.updateLeaveBalance();
-      this.toastr.success("Leave Applied successfully ");
-
-
-
-
-      //}
-    },
-      error => {
-        //  this.toastr.warning(JSON.stringify(error.error.error));
-      });
-
-
   }
-}
+
+
   sendEmailForApplyLeave() {
 
     let email: any;
@@ -454,63 +407,57 @@ export class ApplyLeave implements OnInit {
       "rmID": localStorage.getItem("RMID"),
       "rmName": localStorage.getItem("RMName"),
       "rmEmail": localStorage.getItem("RMEmail")
-
     }
-
 
     this.leaveService.sendEmailForApplyLeave(email).subscribe((data: any) => {
       // this.updateLeaveBalance();
-
-
-      //}
     },
       error => {
-        //  this.toastr.warning(JSON.stringify(error.error.error));
+        console.log("Error in sendEmailForApplyLeave ", error);
       });
-
   }
-  
 
-  getDays( dDate1, dDate2) {
-    if(dDate1!=null){
 
-      if(dDate2>dDate1){
-    var iWeeks, iDateDiff, iAdjust = 0;
-    if (dDate2 < dDate1) return -1; // error code if dates transposed
-    var iWeekday1 = dDate1.getDay(); // day of week
-    var iWeekday2 = dDate2.getDay();
-    iWeekday1 = (iWeekday1 == 0) ? 7 : iWeekday1; // change Sunday from 0 to 7
-    iWeekday2 = (iWeekday2 == 0) ? 7 : iWeekday2;
-    if ((iWeekday1 > 5) && (iWeekday2 > 5)) iAdjust = 1; // adjustment if both days on weekend
-    iWeekday1 = (iWeekday1 > 5) ? 5 : iWeekday1; // only count weekdays
-    iWeekday2 = (iWeekday2 > 5) ? 5 : iWeekday2;
+  getDays(dDate1, dDate2) {
+    if (dDate1 != null) {
 
-    // calculate differnece in weeks (1000mS * 60sec * 60min * 24hrs * 7 days = 604800000)
-    iWeeks = Math.floor((dDate2.getTime() - dDate1.getTime()) / 604800000)
+      if (dDate2 > dDate1) {
+        var iWeeks, iDateDiff, iAdjust = 0;
+        if (dDate2 < dDate1) return -1; // error code if dates transposed
+        var iWeekday1 = dDate1.getDay(); // day of week
+        var iWeekday2 = dDate2.getDay();
+        iWeekday1 = (iWeekday1 == 0) ? 7 : iWeekday1; // change Sunday from 0 to 7
+        iWeekday2 = (iWeekday2 == 0) ? 7 : iWeekday2;
+        if ((iWeekday1 > 5) && (iWeekday2 > 5)) iAdjust = 1; // adjustment if both days on weekend
+        iWeekday1 = (iWeekday1 > 5) ? 5 : iWeekday1; // only count weekdays
+        iWeekday2 = (iWeekday2 > 5) ? 5 : iWeekday2;
 
-    if (iWeekday1 <= iWeekday2) {
-      iDateDiff = (iWeeks * 5) + (iWeekday2 - iWeekday1)
-    } else {
-      iDateDiff = ((iWeeks + 1) * 5) - (iWeekday1 - iWeekday2)
+        // calculate differnece in weeks (1000mS * 60sec * 60min * 24hrs * 7 days = 604800000)
+        iWeeks = Math.floor((dDate2.getTime() - dDate1.getTime()) / 604800000)
+
+        if (iWeekday1 <= iWeekday2) {
+          iDateDiff = (iWeeks * 5) + (iWeekday2 - iWeekday1)
+        } else {
+          iDateDiff = ((iWeeks + 1) * 5) - (iWeekday1 - iWeekday2)
+        }
+
+        iDateDiff -= iAdjust // take into account both days on weekend
+        let totalDays = (iDateDiff + 1);
+        this.leave.totalLeaves = totalDays;
+        this.leave.totalLeavesCount="TotalLeaves : "+totalDays;
+        return totalDays; // add 1 because dates are inclusive
+      } else {
+        this.toastr.error("End Date Should be greater than Start Date ");
+
+      }
     }
+  }
 
-    iDateDiff -= iAdjust // take into account both days on weekend
-    let totalDays=(iDateDiff + 1);
-    this.leave.totalLeaves=totalDays;
-    return totalDays; // add 1 because dates are inclusive
-  }else{
-    this.toastr.error("End Date Should be greater than Start Date ");
-
-  }
-  }
-  }
 
   public updateLeaveBalance() {
     let lbsDocumentId: any;
     let lbsObj: any;
-    let noOfLeaves: any;
-    let lbsUpdate: any;
-    let leaveType: any;
+    let lbsUpdateObj: any;
 
     this.leaveService.getLbsData(localStorage.getItem("EmpId"))
       .subscribe(
@@ -521,55 +468,44 @@ export class ApplyLeave implements OnInit {
             lbsObj = response[key];
             console.log("LBS TEST Response ", response);
             console.log("LBS TEST Key ", key);
-
-
-
           });
+
           console.log("Leave type for leavebalance obj  == ", lbsObj);
-
           console.log("Leave type for leave balance update == ", this.leave.leaveType);
-          if (this.leave.leaveType =="Earned Leave") {
 
+          if (this.leave.leaveType == "Earned Leave") {
             lbsObj.EL = lbsObj.EL - this.leave.totalLeaves;
-            lbsUpdate = {
+            lbsUpdateObj = {
               "EL": lbsObj.EL
             }
 
-          } else if (this.leave.leaveType =="Casual Leave") {
+          } else if (this.leave.leaveType == "Casual Leave") {
             lbsObj.CL = lbsObj.CL - this.leave.totalLeaves;
-            lbsUpdate = {
+            lbsUpdateObj = {
               "CL": lbsObj.CL
 
             }
           }
-          console.log("after update leaves = " + lbsUpdate);
-          this.loginService.updateLBS(lbsDocumentId, lbsUpdate)
+
+          console.log("after update leaves = " + lbsUpdateObj);
+
+          this.loginService.updateLBS(lbsDocumentId, lbsUpdateObj)
             .subscribe(
               res => {
-                //this.results2 = res;
                 console.log("UPDATE", res);
                 this.dialogRef.close();
-
-
               },
               err => {
                 console.log("ERROR!!!!", err);
               }
             );
-
-
         },
-
       ),
+
       err => {
         alert("ERROR!!! \n Check the Console")
         console.log("Error occured", err);
       }
-
-
-
-
   }
-
 
 }

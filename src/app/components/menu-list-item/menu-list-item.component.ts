@@ -1,8 +1,9 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
-import { NavItem } from './nav-item';
 import { Router } from '@angular/router';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { NavItem } from './nav-item';
 import { WebDriverLogger } from 'blocking-proxy/built/lib/webdriver_logger';
+
 
 @Component({
   selector: 'app-menu-list-item',
@@ -18,6 +19,7 @@ import { WebDriverLogger } from 'blocking-proxy/built/lib/webdriver_logger';
     ])
   ]
 })
+
 
 export class MenuListItemComponent {
   expanded: boolean;
@@ -64,4 +66,3 @@ export class MenuListItemComponent {
     }
   }
 }
-

@@ -1,11 +1,4 @@
 <section id="main-content">
-    <!--header start-->
-
-    <!--header end-->
-    <!--sidebar start-->
-
-    <!--sidebar end-->
-    <!--main content start-->
     <section class="wrapper">
         <div class="table-agile-info">
             <div class="panel panel-default">
@@ -74,18 +67,31 @@
                             <th mat-header-cell *matHeaderCellDef>Total Leaves</th>
                             <td mat-cell *matCellDef="let element"> {{element.TotalDays}} </td>
                         </ng-container>
-                        <ng-container matColumnDef="reason">
+                        <!-- <ng-container matColumnDef="reason">
                             <th mat-header-cell *matHeaderCellDef> Reason For Leave</th>
                             <td mat-cell *matCellDef="let element"> {{element.ReasonForLeave}} </td>
+                        </ng-container> -->
+
+
+                        <ng-container matColumnDef="reason">
+                            <th mat-header-cell *matHeaderCellDef> Reason For Leave</th>
+                            <td mat-cell *matCellDef="let element">
+                                <div class="ellipses" title="{{element.ReasonForLeave}}">
+                                    {{element.ReasonForLeave}}
+                                </div>
+                            </td>
                         </ng-container>
+
                         <ng-container matColumnDef="actions">
                             <th mat-header-cell *matHeaderCellDef> Actions</th>
-                            <td mat-cell *matCellDef="let element; let i = index;"> <button type="submit" *ngIf="element.Status == 'Pending' || element.Status == 'Approved'"
+                            <td mat-cell *matCellDef="let element; let i = index;"> 
+                                <button type="submit" *ngIf="element.Status == 'Pending' || element.Status == 'Approved'"
                                     [disabled]="element.Status == 'Approved'" class="btn btn-success" (click)="updateLeave(i)"><i
-                                        class="fa fa-check-square-o"></i> Approve</button>
+                                        class="fa fa-check-square-o"></i> Approve
+                                </button>
                                 <button type="submit" *ngIf="element.Status == 'Pending' || element.Status == 'Rejected'"
                                     [disabled]="element.Status == 'Rejected'" class="btn btn-danger" (click)="saveSelectedEmpId(i);saveIndex(i);openDialog();"><i
-                                        class="fa fa-check-square-o"></i>      Reject&nbsp;&nbsp;&nbsp;&nbsp;  
+                                        class="fa fa-check-square-o"></i> Reject&nbsp;&nbsp;&nbsp;&nbsp;
                                 </button> </td>
                         </ng-container>
 
@@ -100,5 +106,4 @@
             </div>
         </div>
     </section>
-    <!--main content end-->
 </section>

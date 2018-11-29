@@ -1,22 +1,29 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { AppComponent } from './app.component';
-import { LoginComponent } from './components/login/login.component';
-
-import { Routes, RouterModule } from '@angular/router';
-
+import { HttpClientModule } from '@angular/common/http';
 import { APP_BASE_HREF } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Routes, RouterModule } from '@angular/router';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { AppComponent } from './app.component';
+
+import { LoginComponent } from './components/login/login.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HeaderComponent } from './components/header/header.component';
 import { AdminComponent } from './components/admin/admin.component'
-import { HttpClientModule } from '@angular/common/http';
 import { LeaveComponent, ApplyLeave } from './components/leave/leave.component';
 import { MenuListItemComponent } from './components/menu-list-item/menu-list-item.component';
-import { MatSelectModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatNativeDateModule, MatMenuModule, MatCardModule, MatSidenav, MatInputModule } from '@angular/material';
+import { ReportsComponent } from './components/reports/reports.component';
+import { LbReportsComponent } from './components/lb-reports/lb-reports.component';
+import { EmployeesAppliedLeavesComponent, RejectLeave } from './components/employees-applied-leaves/employees-applied-leaves.component';
+import { DatePickerComponent } from './components/date-picker/date-picker.component';
+import { InitialLoginComponent, DialogOverviewExampleDialog3 } from './components/initial-login/initial-login.component';
+
 import {
+  MatSelectModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatNativeDateModule, MatMenuModule, MatCardModule, MatSidenav, MatInputModule,
   MatAutocompleteModule,
   MatButtonToggleModule,
   MatCheckboxModule,
@@ -35,19 +42,9 @@ import {
   MatTableModule,
   MatTabsModule,
   MatTooltipModule,
-  MatStepperModule,
-
-} from '@angular/material';
-
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { ReportsComponent } from './components/reports/reports.component';
-import { LbReportsComponent } from './components/lb-reports/lb-reports.component';
-import { EmployeesAppliedLeavesComponent, RejectLeave } from './components/employees-applied-leaves/employees-applied-leaves.component';
-import { DatePickerComponent } from './components/date-picker/date-picker.component';
-
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { InitialLoginComponent, DialogOverviewExampleDialog3 } from './components/initial-login/initial-login.component';
-
+  MatStepperModule
+}
+  from '@angular/material';
 import { ToastrModule } from 'ngx-toastr';
 
 const routes: Routes = [
@@ -84,11 +81,6 @@ const routes: Routes = [
 
     ]
   }
-
-
-
-
-
 ];
 @NgModule({
   declarations: [
@@ -155,7 +147,7 @@ const routes: Routes = [
     MatDatepickerModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(
-      { preventDuplicates: true}
+      { preventDuplicates: true }
     )
   ],
   providers: [],

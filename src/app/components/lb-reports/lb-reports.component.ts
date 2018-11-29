@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { LeaveService } from './../../services/leave.service';
 
+
 @Component({
   selector: 'app-lb-reports',
   templateUrl: './lb-reports.component.html',
   styleUrls: ['./lb-reports.component.scss']
 })
+
 
 export class LbReportsComponent implements OnInit {
 
@@ -20,6 +22,7 @@ export class LbReportsComponent implements OnInit {
     this.leaveBalanceReport();
   }
 
+
   leaveBalanceReport() {
     this.leaveService.getLbsData2()
       .subscribe(response => {
@@ -29,5 +32,4 @@ export class LbReportsComponent implements OnInit {
         });
       });
   }
-
 }

@@ -1,8 +1,8 @@
 import { Component, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import * as moment from 'moment';
+
 
 @Component({
   selector: 'app-date-picker',
@@ -16,14 +16,12 @@ import * as moment from 'moment';
     }
   ]
 })
+
+
 export class DatePickerComponent implements ControlValueAccessor {
 
-
   @Input() _dateValue: string = null;
-
   @Input() public placeholder: string = null;
-
-
   @Input() private format = 'YYYY-MM-DD';
 
   get dateValue() {
@@ -44,6 +42,7 @@ export class DatePickerComponent implements ControlValueAccessor {
       this.dateValue = moment(value, this.format);
     }
   }
+
   propagateChange = (_: any) => { };
 
   registerOnChange(fn) {

@@ -1,18 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { HttpErrorResponse } from '@angular/common/http'
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
+
+
 @Injectable({
   providedIn: 'root'
 })
+
+
 export class LeaveService {
   response: any;
   EmpId: any;
 
-  constructor(private httpClient: HttpClient) {
-  }
+  constructor(
+    private httpClient: HttpClient
+    ) {}
 
 
   //LMS APIs

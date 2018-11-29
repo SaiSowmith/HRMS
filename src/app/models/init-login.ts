@@ -1,6 +1,6 @@
 export class InitLogin {
-    constructor(
-      public newPassword?: string,
-      public confirmPassword?: string,
-    ) {}
-  }
+  constructor(
+    public newPassword?: string,
+    public confirmPassword?: string,
+  ) { }
+}
