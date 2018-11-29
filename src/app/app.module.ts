@@ -21,6 +21,7 @@ import { LbReportsComponent } from './components/lb-reports/lb-reports.component
 import { EmployeesAppliedLeavesComponent, RejectLeave } from './components/employees-applied-leaves/employees-applied-leaves.component';
 import { DatePickerComponent } from './components/date-picker/date-picker.component';
 import { InitialLoginComponent, DialogOverviewExampleDialog3 } from './components/initial-login/initial-login.component';
+import { SigninService } from './services/signin.service';
 
 import {
   MatSelectModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatNativeDateModule, MatMenuModule, MatCardModule, MatSidenav, MatInputModule,
@@ -61,7 +62,7 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    component: AdminComponent,
+    component: AdminComponent, canActivate: [ SigninService ],
     children: [
       {
         path: 'dashboard', component: DashboardComponent,

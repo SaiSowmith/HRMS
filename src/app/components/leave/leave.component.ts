@@ -326,7 +326,6 @@ export class ApplyLeave implements OnInit {
       'fromDate': [null, Validators.required],
       'toDate': [null, Validators.required],
       'reason': [null, [Validators.required, Validators.minLength(2), Validators.maxLength(150)]],
-      'totalLeaves': [null, Validators.required],
       'validate': ''
     });
   }
@@ -436,7 +435,7 @@ export class ApplyLeave implements OnInit {
   getDays( dDate1, dDate2) {
     if(dDate1!=null){
 
-      if(dDate2=>dDate1){
+      if(dDate2>=dDate1){
     var iWeeks, iDateDiff, iAdjust = 0;
     if (dDate2 < dDate1) return -1; // error code if dates transposed
     var iWeekday1 = dDate1.getDay(); // day of week

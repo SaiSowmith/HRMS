@@ -49,7 +49,7 @@
             </div>
         </div>
         <div class="col-md-12 form-element pop-btn-set">
-            <button mat-raised-button color="primary" type="submit" class="button pull-right" [disabled]="formGroup.valid">Submit</button>
+            <button mat-raised-button color="primary" type="submit" class="button pull-right" [disabled]="!formGroup.valid">Submit</button>
             <button mat-button (click)="onNoClick()" class="button pull-right">Cancel</button>
         </div>
     </form>
