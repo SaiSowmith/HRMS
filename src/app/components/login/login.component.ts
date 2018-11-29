@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
                 this.router.navigate(['/initial-login']);
               } else {
                 this.router.navigate(['/admin/dashboard']);
-                this.toastr.success("LoggedIn Successfully");
+               // this.toastr.success("LoggedIn Successfully");
               }
             } else {
               console.log("come to else ");

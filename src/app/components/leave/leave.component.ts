@@ -119,7 +119,7 @@ export class LeaveComponent implements OnInit {
     let localResult = this.leavesHistoryArray;
     this.leaveService.cancelLeaveRequest(documentId).subscribe(response => {
       this.toastr.success("Leave cancelled  successfully ");
-
+ this.sendEmailForCancelLeaveRequest();
       this.leaveService.getLbsData(this.EmpId)
         .subscribe(
           response => {
@@ -181,6 +181,19 @@ export class LeaveComponent implements OnInit {
     });
   }
 
+  sendEmailForCancelLeaveRequest(){
+    let email:any
+    email={
+      "rmID": localStorage.getItem("RMID"),
+      "rmEmail": localStorage.getItem("RMEmail")
+    }
+
+    this.leaveService.sendEmailForCancelLeaveRequest(email).subscribe((data: any) => {
+    },
+      error => {
+        console.log("Error in sendEmailForApplyLeave ", error);
+      });
+  }
 
   loadLBSData(empId) {
     this.loginService.getLBS(empId)
@@ -416,6 +429,8 @@ export class ApplyLeave implements OnInit {
         console.log("Error in sendEmailForApplyLeave ", error);
       });
   }
+
+
 
 
   getDays( dDate1, dDate2) {

@@ -1,6 +1,6 @@
 <section id="main-content">
     <section class="wrapper">
-        <div *ngFor="let leave of results6" class="market-updates">
+        <div *ngFor="let leave of lbsData" class="market-updates">
 
             <div class="col-md-4 market-update-gd">
                 <div class="market-update-block clr-block-1">
@@ -96,7 +96,7 @@
 
                         <ng-container matColumnDef="totalleaves">
                             <th mat-header-cell *matHeaderCellDef> Total Leaves </th>
-                            <td mat-cell *matCellDef="let element"> {{element.TotalDays}} </td>
+                            <td mat-cell *matCellDef="let element"  style="text-align:left"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{element.TotalDays}} </td>
                         </ng-container>
 
                         <ng-container matColumnDef="typeofleave">

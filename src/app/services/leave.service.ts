@@ -58,6 +58,14 @@ export class LeaveService {
       return res;
     });
   }
+  
+  sendEmailForCancelLeaveRequest(leave){
+   return this.httpClient.post('',leave).map((res: Response) => {
+     return res;
+   });
+  }
+
+
 
 
   //LBS APIs
