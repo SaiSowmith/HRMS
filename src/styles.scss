@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+
 .left_sidebar {
     .panel-group .panel+.panel {
         margin-top: 10px;
@@ -42,7 +43,6 @@
     }
 }
 
-@import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
 @import url('https://fonts.googleapis.com/css?family=Quicksand:400,500');
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 html,
@@ -505,7 +505,7 @@ body {
 }
 
 .mat-dialog-container {
-    padding: 24px 24px 0 24px!important;
+    padding: 0!important;
 }
 
 .modal-footer {
@@ -665,6 +665,10 @@ body {
     }
 }
 
+.mt10 {
+    margin-top: 10px!important;
+}
+
 .mb10 {
     margin-bottom: 10px;
 }
@@ -676,7 +680,77 @@ body {
 // .left_sidebar{
 //     padding-top: 90px;
 // }
+// .mat-form-field{
+//     width:400px !important
+//  }
+.mat-toolbar.mat-primary {
+    background: #303745;
+}
 
+.h-panel-heading {
+    border-bottom: 1px solid #ccc;
+    margin: 0 0 25px 0;
+    padding: 0 0 10px 0;
+}
+
+.panel-head-txt {
+    font-weight: 500;
+    font-size: 18px;
+    padding-top: 12px;
+}
+
+.mat-elevation-z8 {
+    box-shadow: 0 0 0 -3px rgba(0, 0, 0, 0), 0 8px 10px 1px rgba(0, 0, 0, 0), 0 3px 14px 2px rgba(0, 0, 0, 0);
+}
+
+.popup-panel {
+    padding: 20px;
+}
+
+.mat-paginator {
+    background: transparent!important;
+}
+
+.popup-panel .mat-form-field {
+    font-family: 'Quicksand', sans-serif!important;
+    width: 100%;
+}
+
+.mat-error {
+    display: block;
+    background-color: #f2dede;
+    padding: 6px;
+    font-size: 11px;
+    border-radius: 5px;
+    border: 1px solid #ebccd1;
+    color: #a94442;
+}
+
+.table {
+    border: 1px solid #ccc;
+}
+
+.table>tbody>tr>td,
+.table>tbody>tr>th,
+.table>tfoot>tr>td,
+.table>tfoot>tr>th,
+.table>thead>tr>td,
+.table>thead>tr>th {
+    border-bottom: 1px solid #ccc ! important;
+}
+
+.gen-report-sec .mat-form-field {
+    width: 100%;
+}
+
+.gen-report-sec {
+    background-color: #fff;
+    margin: 0 0 30px 0;
+    padding: 25px 0 10px 0;
+    box-shadow: 1px 0 3px rgba(0, 0, 0, .15);
+    border-radius: 3px;
+    border: 1px solid #ccc
+}
 
 .mat-form-field{
     width:400px !important
@@ -688,4 +762,8 @@ body {
 td.mat-cell{
     text-align: left ;
     
+.pop-btn-set {
+    border-top: 1px solid #ccc;
+    margin-top: 25px;
+    padding: 15px 0 0 0;
 }

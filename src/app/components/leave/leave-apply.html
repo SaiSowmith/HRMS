@@ -1,83 +1,57 @@
 <mat-toolbar color="primary">
-  <span>Leave Request</span>
+    <span>Leave Request</span>
 </mat-toolbar>
 
-<div>
-  <br>
-
-  <form ngNativeValidate [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)">
-
-    <mat-form-field>
-
-      <mat-select formControlName="leaveType" placeholder="Leave Type" [(ngModel)]="leave.leaveType" id="leaveType">
-        <mat-option *ngFor="let leaveType of leaveTypes" [value]="leaveType">{{leaveType}}</mat-option>
-      </mat-select>
-
-    </mat-form-field>
-
-
-    <p>
-      <mat-form-field style="width:200px !important">
-
-        <input matInput formControlName="fromDate" [max]="maxDate" [matDatepickerFilter]="myFilter" [matDatepicker]="picker"
-          placeholder="From Date" id="fromDate" [(ngModel)]="leave.fromDate" name="fromDate" required>
-
-        <mat-error *ngIf="!formGroup.controls['fromDate'].valid && formGroup.controls['fromDate'].touched">
-          From date is required
-        </mat-error>
-
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-
-      </mat-form-field>
-
-      <mat-form-field style="width:200px !important">
-
-        <input matInput formControlName="toDate" [max]="maxDate" [matDatepickerFilter]="myFilter" [matDatepicker]="picker2"
-          placeholder="To Date" id="toDate" [(ngModel)]="leave.toDate" (ngModelChange)="getDays(leave.fromDate,leave.toDate)"
-          name="toDate" required>
-
-        <mat-error *ngIf="!formGroup.controls['toDate'].valid && formGroup.controls['toDate'].touched">
-          To date is required
-        </mat-error>
-
-        <mat-error *ngIf="!(leave.fromDate>leave.toDate)">
-          Date Error
-        </mat-error>
-
-        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-        <mat-datepicker #picker2></mat-datepicker>
-      </mat-form-field>
-
-    </p>
-
-    <mat-form-field>
-
-      <textarea matInput formControlName="reason" placeholder="Reason" id="reason"
-       [(ngModel)]="leave.reason" name="reason" type="text" required>
-      </textarea>
-      
-      <mat-error *ngIf="!formGroup.controls['reason'].valid">
-        {{getErrorReason()}}
-      </mat-error>
-
-    </mat-form-field>
-    <div>
-      <br>
-        {{leave.totalLeavesCount}}
-        <br>
-   
-      </div>
-      
-    
-    <div class="form-element">
-      <br>
-      <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">
-        Submit
-      </button>
-      <button mat-button (click)="onNoClick()">Cancel</button>
-    </div>
-    <br>
-    
-  </form>
+<div class="popup-panel">
+    <form ngNativeValidate [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)">
+        <div class="row">
+            <div class="col-md-12">
+                <mat-form-field>
+                    <mat-select formControlName="leaveType" placeholder="Leave Type" [(ngModel)]="leave.leaveType" id="leaveType">
+                        <mat-option *ngFor="let leaveType of leaveTypes" [value]="leaveType">{{leaveType}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field>
+                    <input matInput formControlName="fromDate" [max]="maxDate" [matDatepickerFilter]="myFilter" [matDatepicker]="picker" placeholder="From Date" id="fromDate" [(ngModel)]="leave.fromDate" name="fromDate" required>
+                    <mat-error *ngIf="!formGroup.controls['fromDate'].valid && formGroup.controls['fromDate'].touched">
+                        From date is required
+                    </mat-error>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field>
+                    <input matInput formControlName="toDate" [max]="maxDate" [matDatepickerFilter]="myFilter" [matDatepicker]="picker2" placeholder="To Date" id="toDate" [(ngModel)]="leave.toDate" (ngModelChange)="getDays(leave.fromDate,leave.toDate)" name="toDate" required>
+                    <mat-error *ngIf="!formGroup.controls['toDate'].valid && formGroup.controls['toDate'].touched">
+                        To date is required
+                    </mat-error>
+                    <mat-error *ngIf="!(leave.fromDate>leave.toDate)">
+                        Date Error
+                    </mat-error>
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-md-12">
+                <mat-form-field>
+                    <textarea matInput formControlName="reason" placeholder="Reason" id="reason" [(ngModel)]="leave.reason" name="reason" type="text" required>
+              </textarea>
+                    <mat-error *ngIf="!formGroup.controls['reason'].valid">
+                        {{getErrorReason()}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-12">
+                {{leave.totalLeavesCount}}
+            </div>
+        </div>
+        <div class="col-md-12 form-element pop-btn-set">
+            <button mat-raised-button color="primary" type="submit" class="button pull-right" [disabled]="formGroup.valid">Submit</button>
+            <button mat-button (click)="onNoClick()" class="button pull-right">Cancel</button>
+        </div>
+    </form>
+    <div class="clearfix"></div>
 </div>
