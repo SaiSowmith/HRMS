@@ -1,31 +1,33 @@
 <section id="main-content">
-
-
     <section class="wrapper">
-        <form ngNativeValidate [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
-
-            <app-date-picker formControlName="fromDate" placeholder="Enter The From Date" [(ngModel)]="reports.fromDate"
-                format="YYYY-MM-DD"></app-date-picker>
-            <app-date-picker formControlName="toDate" placeholder="Enter The To Date" [(ngModel)]="reports.toDate"
-                format="YYYY-MM-DD"></app-date-picker>
-
-
-
-
-            <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">
-                Submit
-            </button>
-        </form>
         <div class="table-agile-info">
-            <div class="panel panel-default">
-
-                <div class="panel-heading ellipsis">
-                    Leave Report
+            <div class="panel-default">
+                <div class="h-panel-heading">
+                    <div class="pull-left panel-head-txt">Generate Report</div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <form ngNativeValidate [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
+                <div class="row gen-report-sec">
+                    <div class="col-md-2">
+                        <app-date-picker formControlName="fromDate" placeholder="Enter The From Date" [(ngModel)]="reports.fromDate" format="YYYY-MM-DD"></app-date-picker>
+                    </div>
+                    <div class="col-md-2">
+                        <app-date-picker formControlName="toDate" placeholder="Enter The To Date" [(ngModel)]="reports.toDate" format="YYYY-MM-DD"></app-date-picker>
+                    </div>
+                    <div class="col-md-2">
+                        <button mat-raised-button color="primary" type="submit" class="button mt10" [disabled]="!formGroup.valid">Submit</button>
+                    </div>
+                </div>
+            </form>
+            <div *ngFor="let item of reportsDataList">
+                <div class="h-panel-heading">
+                    <div class="pull-left panel-head-txt">Leave Report</div>
+                    <div class="clearfix"></div>
                 </div>
 
                 <div class="table-responsive">
                     <table class="table table-striped b-t b-light">
-
                         <thead>
                             <tr>
                                 <th>Emp. ID</th>
@@ -34,9 +36,8 @@
 
                             </tr>
                         </thead>
-
                         <tbody>
-                            <tr *ngFor="let item of reportsDataList">
+                            <tr>
                                 <td>{{item.EmpId}}</td>
                                 <td>{{item.EmpName}}</td>
                                 <td>{{item.TotalDays}}</td>
@@ -45,9 +46,8 @@
 
                     </table>
                 </div>
-
             </div>
+
         </div>
     </section>
-
 </section>
