@@ -20,7 +20,7 @@
                     </div>
                 </div>
             </form>
-            <div *ngFor="let item of reportsDataList">
+            <div >
                 <div class="h-panel-heading">
                     <div class="pull-left panel-head-txt">Leave Report</div>
                     <div class="clearfix"></div>
@@ -37,7 +37,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr *ngFor="let item of reportsDataList">
                                 <td>{{item.EmpId}}</td>
                                 <td>{{item.EmpName}}</td>
                                 <td>{{item.TotalDays}}</td>

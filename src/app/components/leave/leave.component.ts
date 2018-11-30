@@ -84,6 +84,7 @@ export class LeaveComponent implements OnInit {
   loadAppliedLeavesData(empId) {
 
     this.leavesHistoryArray = [];
+    this.leavesDocumentIdArray=[];
     this.dataSource = [];
     this.loginService.getLeave(empId)
       .subscribe(
@@ -114,16 +115,17 @@ export class LeaveComponent implements OnInit {
   }
 
   cancelLeaveRequest(index) {
+    //alert("index = "+index);
     let documentId = this.leavesDocumentIdArray[index];
+    //alert("document Id= "+documentId);
     console.log("result while cancel data = ", this.leavesHistoryArray);
     let localResult = this.leavesHistoryArray;
     this.leaveService.cancelLeaveRequest(documentId).subscribe(response => {
     this.toastr.success("Leave cancelled  successfully ");
     this.sendEmailForCancelLeaveRequest();
-      this.leaveService.getLbsData(this.EmpId)
+    this.leaveService.getLbsData(this.EmpId)
         .subscribe(
           response => {
-
             Object.keys(response).forEach(key => {
               this.cancelRequestLbsData = response[key];
               console.log("LBS TEST Response ", response);
@@ -135,7 +137,6 @@ export class LeaveComponent implements OnInit {
             });
 
             this.lbsDocumentId = this.keyId;
-
             console.log("lbsDocID", this.lbsDocumentId)
             this.lbsObj = this.cancelRequestLbsData;
             console.log("Before  update leaves = " + this.lbsObj);
@@ -184,7 +185,7 @@ export class LeaveComponent implements OnInit {
   sendEmailForCancelLeaveRequest(){
     let email:any
     email={
-      "RMName": localStorage.getItem("RMName"),
+      "rmName": localStorage.getItem("RMName"),
       "rmEmail": localStorage.getItem("RMEmail"),
       "empName": localStorage.getItem("EmpName"),
       "status":"Canceled"
