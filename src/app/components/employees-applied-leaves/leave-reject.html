@@ -2,11 +2,13 @@
   <span>Reason for Rejection</span>
 </mat-toolbar>
 
-<div>
+<div class="popup-panel">
   <br>
   <form ngNativeValidate [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
+      <div class="row">
+          <div class="col-md-12">
 
-    <mat-form-field class="fullwidth">
+    <mat-form-field >
 
       <textarea matInput formControlName="reject" placeholder="Reject Reason" id="reject" [(ngModel)]="reject.reject"
         name="reject" type="text" required>
@@ -17,9 +19,10 @@
       </mat-error>
 
     </mat-form-field>
+    </div>
     <br>
-
-    <div class="form-element">
+      </div>
+    <div class="col-md-12 form-element pop-btn-set">
       <br>
       <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">
         Submit
@@ -28,4 +31,5 @@
     </div>
     <br>
   </form>
+  <div class="clearfix"></div>
 </div>

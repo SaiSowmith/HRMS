@@ -14,28 +14,36 @@
             </div>
             <div class="col-md-6">
                 <mat-form-field>
-                    <input matInput formControlName="fromDate" [max]="maxDate" [matDatepickerFilter]="myFilter" [matDatepicker]="picker" placeholder="From Date" id="fromDate" [(ngModel)]="leave.fromDate" name="fromDate" required>
+                    <input matInput formControlName="fromDate" [max]="maxDate" [matDatepickerFilter]="myFilter" [matDatepicker]="picker" placeholder="From Date" id="fromDate" [(ngModel)]="leave.fromDate"  (ngModelChange)="getDays(leave.fromDate,leave.toDate)"  name="fromDate" required>
                     <mat-error *ngIf="!formGroup.controls['fromDate'].valid && formGroup.controls['fromDate'].touched">
                         From date is required
                     </mat-error>
+                    <br>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
             </div>
+            <br>
             <div class="col-md-6">
                 <mat-form-field>
                     <input matInput formControlName="toDate" [max]="maxDate" [matDatepickerFilter]="myFilter" [matDatepicker]="picker2" placeholder="To Date" id="toDate" [(ngModel)]="leave.toDate" (ngModelChange)="getDays(leave.fromDate,leave.toDate)" name="toDate" required>
                     <mat-error *ngIf="!formGroup.controls['toDate'].valid && formGroup.controls['toDate'].touched">
                         To date is required
                     </mat-error>
-                    <mat-error *ngIf="!(leave.fromDate>leave.toDate)">
+                    <!-- <mat-error *ngIf="!(leave.fromDate>leave.toDate)">
                         Date Error
-                    </mat-error>
+                    </mat-error> -->
                     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                     <mat-datepicker #picker2></mat-datepicker>
                 </mat-form-field>
             </div>
+            
             <div class="col-md-12">
+                    {{leave.totalLeavesCount}}
+            </div>
+            
+            <div class="col-md-12">
+                <br>
                 <mat-form-field>
                     <textarea matInput formControlName="reason" placeholder="Reason" id="reason" [(ngModel)]="leave.reason" name="reason" type="text" required>
               </textarea>
@@ -44,9 +52,7 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            <div class="col-md-12">
-                {{leave.totalLeavesCount}}
-            </div>
+           
         </div>
         <div class="col-md-12 form-element pop-btn-set">
             <button mat-raised-button color="primary" type="submit" class="button pull-right" [disabled]="!formGroup.valid">Submit</button>

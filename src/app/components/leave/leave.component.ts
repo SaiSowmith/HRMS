@@ -436,7 +436,7 @@ export class ApplyLeave implements OnInit {
 
 
   getDays( dDate1, dDate2) {
-    if(dDate1!=null){
+    if(dDate1!=null && dDate2!=null){
 
       if(dDate2>=dDate1){
     var iWeeks, iDateDiff, iAdjust = 0;
