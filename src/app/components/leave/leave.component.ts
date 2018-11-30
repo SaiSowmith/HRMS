@@ -118,8 +118,8 @@ export class LeaveComponent implements OnInit {
     console.log("result while cancel data = ", this.leavesHistoryArray);
     let localResult = this.leavesHistoryArray;
     this.leaveService.cancelLeaveRequest(documentId).subscribe(response => {
-      this.toastr.success("Leave cancelled  successfully ");
- this.sendEmailForCancelLeaveRequest();
+    this.toastr.success("Leave cancelled  successfully ");
+    this.sendEmailForCancelLeaveRequest();
       this.leaveService.getLbsData(this.EmpId)
         .subscribe(
           response => {
@@ -184,8 +184,10 @@ export class LeaveComponent implements OnInit {
   sendEmailForCancelLeaveRequest(){
     let email:any
     email={
-      "rmID": localStorage.getItem("RMID"),
-      "rmEmail": localStorage.getItem("RMEmail")
+      "RMName": localStorage.getItem("RMName"),
+      "rmEmail": localStorage.getItem("RMEmail"),
+      "empName": localStorage.getItem("EmpName"),
+      "status":"Canceled"
     }
 
     this.leaveService.sendEmailForCancelLeaveRequest(email).subscribe((data: any) => {

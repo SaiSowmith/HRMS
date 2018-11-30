@@ -42,25 +42,25 @@ export class LeaveService {
 
   //Email APIs
   sendEmailForApplyLeave(leave) {
-    return this.httpClient.post('http://localhost:8080/emailAPI/applyLeave', leave).map((res: Response) => {
+    return this.httpClient.post('http://http://54.224.35.68:8080/emailAPI/applyLeave', leave).map((res: Response) => {
       return res;
     });
   }
 
   sendEmailForApprovedLeaves(leave) {
-    return this.httpClient.post('http://localhost:8080/emailAPI/leaveStatus', leave).map((res: Response) => {
+    return this.httpClient.post('http://54.224.35.68:8080/emailAPI/leaveStatus', leave).map((res: Response) => {
       return res;
     });
   }
 
   sendEmailByRejectLeaves(leave) {
-    return this.httpClient.post('http://localhost:8080/emailAPI/leaveStatus', leave).map((res: Response) => {
+    return this.httpClient.post('http://54.224.35.68:8080/emailAPI/leaveStatus', leave).map((res: Response) => {
       return res;
     });
   }
   
   sendEmailForCancelLeaveRequest(leave){
-   return this.httpClient.post('',leave).map((res: Response) => {
+    return this.httpClient.post('http://54.224.35.68:8080/emailAPI/leaveStatus', leave).map((res: Response) => {
      return res;
    });
   }
