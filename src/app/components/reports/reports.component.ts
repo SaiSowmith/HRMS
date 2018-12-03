@@ -29,12 +29,16 @@ export class ReportsComponent implements OnInit {
   submitDate: { "fromDate": Date; "toDate": Date; };
   reportData: any = [];
   reportsDataList: any = [];
-
-  myFilter = (d: Date): boolean => {
-    const day = d.getDay();
-    console.log("DAY", day)
-    return day !== 0 && day !== 6;
-  }
+  finaldate1: any;
+  finaldate2: any;
+  
+  minDate = new Date();
+  maxDate = new Date(2020, 0, 1);
+  // myFilter = (d: Date): boolean => {
+  //   const day = d.getDay();
+  //   console.log("DAY", day)
+  //   return day !== 0 && day !== 6;
+  // }
 
 
   constructor(
@@ -60,9 +64,24 @@ export class ReportsComponent implements OnInit {
       "toDate": this.reports.toDate
     }
 
+    var a = this.reports.fromDate.toString();
+    console.log("a",a);
+    var date1 = moment(new Date(a.substr(0, 16)));
+    this.finaldate1=date1.format("YYYY-MM-DD");
+    console.log("finalDate1",this.finaldate1);
+
+    var b = this.reports.toDate.toString();
+    console.log("b",b);
+    var date2 = moment(new Date(b.substr(0, 16)));
+    this.finaldate2=date2.format("YYYY-MM-DD");
+    console.log("finalDate2",this.finaldate2);
+    // var ds = "Mon Dec 10 2018 00:00:00 GMT+0530 (India Standard Time)";
+    // var date = moment(new Date(ds.substr(0, 16)));
+    // console.log(date.format("YYYY-MM-DD"));
+
     this.reportData = [];
     this.reportsDataList = [];
-    this.leaveService.getReport(this.reports.fromDate, this.reports.toDate)
+    this.leaveService.getReport(this.finaldate1,this.finaldate2)
       .subscribe(
 
         response => {
@@ -159,6 +178,9 @@ export class ReportsComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
+    var ds = "Mon Dec 10 2018 00:00:00 GMT+0530 (India Standard Time)";
+    var date = moment(new Date(ds.substr(0, 16)));
+    console.log("Test",date.format("YYYY-MM-DD"));
   }
 
 }

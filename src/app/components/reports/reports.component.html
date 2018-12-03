@@ -9,12 +9,34 @@
             </div>
             <form ngNativeValidate [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
                 <div class="row gen-report-sec">
-                    <div class="col-md-2">
+                    <!-- <div class="col-md-2">
                         <app-date-picker formControlName="fromDate" placeholder="Enter The From Date" [(ngModel)]="reports.fromDate" format="YYYY-MM-DD"></app-date-picker>
                     </div>
                     <div class="col-md-2">
                         <app-date-picker formControlName="toDate" placeholder="Enter The To Date" [(ngModel)]="reports.toDate" format="YYYY-MM-DD"></app-date-picker>
-                    </div>
+                    </div> -->
+
+                    <div class="col-md-2">
+                            <mat-form-field>
+                                <input matInput formControlName="fromDate" [max]="maxDate" [matDatepickerFilter]="myFilter" [matDatepicker]="picker" placeholder="From Date" id="fromDate" [(ngModel)]="reports.fromDate"   name="fromDate" required>
+                                <mat-error *ngIf="!formGroup.controls['fromDate'].valid && formGroup.controls['fromDate'].touched">
+                                    From date is required
+                                </mat-error>
+                                <br>
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-2">
+                            <mat-form-field>
+                                <input matInput formControlName="toDate" [min]="reports.fromDate" [max]="maxDate" [matDatepickerFilter]="myFilter" [matDatepicker]="picker2" placeholder="To Date" id="toDate" [(ngModel)]="reports.toDate" name="toDate" required>
+                                <mat-error *ngIf="!formGroup.controls['toDate'].valid && formGroup.controls['toDate'].touched">
+                                    To date is required
+                                </mat-error>
+                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                <mat-datepicker #picker2 [startAt]="reports.fromDate" ></mat-datepicker>
+                            </mat-form-field>
+                        </div>
                     <div class="col-md-2">
                         <button mat-raised-button color="primary" type="submit" class="button mt10" [disabled]="!formGroup.valid">Submit</button>
                     </div>

@@ -26,7 +26,7 @@
             <br>
             <div class="col-md-6">
                 <mat-form-field>
-                    <input matInput formControlName="toDate" [max]="maxDate" [matDatepickerFilter]="myFilter" [matDatepicker]="picker2" placeholder="To Date" id="toDate" [(ngModel)]="leave.toDate" (ngModelChange)="getDays(leave.fromDate,leave.toDate)" name="toDate" required>
+                    <input matInput formControlName="toDate" [min]="leave.fromDate" [max]="maxDate" [matDatepickerFilter]="myFilter" [matDatepicker]="picker2" placeholder="To Date" id="toDate" [(ngModel)]="leave.toDate" (ngModelChange)="getDays(leave.fromDate,leave.toDate)" name="toDate" required>
                     <mat-error *ngIf="!formGroup.controls['toDate'].valid && formGroup.controls['toDate'].touched">
                         To date is required
                     </mat-error>
@@ -34,7 +34,7 @@
                         Date Error
                     </mat-error> -->
                     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                    <mat-datepicker #picker2></mat-datepicker>
+                    <mat-datepicker #picker2 [startAt]="leave.fromDate" ></mat-datepicker>
                 </mat-form-field>
             </div>
             
