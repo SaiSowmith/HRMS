@@ -17,38 +17,59 @@
                     </div> -->
 
                     <div class="col-md-2">
-                            <mat-form-field>
-                                <input matInput formControlName="fromDate" [max]="maxDate" [matDatepickerFilter]="myFilter" [matDatepicker]="picker" placeholder="From Date" id="fromDate" [(ngModel)]="reports.fromDate"   name="fromDate" required>
-                                <mat-error *ngIf="!formGroup.controls['fromDate'].valid && formGroup.controls['fromDate'].touched">
-                                    From date is required
-                                </mat-error>
-                                <br>
-                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                <mat-datepicker #picker></mat-datepicker>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-2">
-                            <mat-form-field>
-                                <input matInput formControlName="toDate" [min]="reports.fromDate" [max]="maxDate" [matDatepickerFilter]="myFilter" [matDatepicker]="picker2" placeholder="To Date" id="toDate" [(ngModel)]="reports.toDate" name="toDate" required>
-                                <mat-error *ngIf="!formGroup.controls['toDate'].valid && formGroup.controls['toDate'].touched">
-                                    To date is required
-                                </mat-error>
-                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                                <mat-datepicker #picker2 [startAt]="reports.fromDate" ></mat-datepicker>
-                            </mat-form-field>
-                        </div>
+                        <mat-form-field>
+                            <input matInput formControlName="fromDate" [max]="maxDate" [matDatepickerFilter]="myFilter"
+                                [matDatepicker]="picker" placeholder="From Date" id="fromDate" [(ngModel)]="reports.fromDate"
+                                name="fromDate" required>
+                            <mat-error *ngIf="!formGroup.controls['fromDate'].valid && formGroup.controls['fromDate'].touched">
+                                From date is required
+                            </mat-error>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-2">
+                        <mat-form-field>
+                            <input matInput formControlName="toDate" [min]="reports.fromDate" [max]="maxDate"
+                                [matDatepickerFilter]="myFilter" [matDatepicker]="picker2" placeholder="To Date" id="toDate"
+                                [(ngModel)]="reports.toDate" name="toDate" required>
+                            <mat-error *ngIf="!formGroup.controls['toDate'].valid && formGroup.controls['toDate'].touched">
+                                To date is required
+                            </mat-error>
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2 [startAt]="reports.fromDate"></mat-datepicker>
+                        </mat-form-field>
+                    </div>
                     <div class="col-md-2">
                         <button mat-raised-button color="primary" type="submit" class="button mt10" [disabled]="!formGroup.valid">Submit</button>
                     </div>
                 </div>
             </form>
-            <div >
+            <div>
                 <div class="h-panel-heading">
                     <div class="pull-left panel-head-txt">Leave Report</div>
                     <div class="clearfix"></div>
                 </div>
 
-                <div *ngIf="reportsDataList.length>0" class="table-responsive">
+                <div *ngIf="reportsDataList.length>0 ; else noData" class="table-responsive">
+                    <!-- <mat-spinner *ngIf="reportsDataList.length<0"></mat-spinner> -->
+
+                    <!-- <mat-progress-spinner
+                        [color]="color"
+                        [mode]="mode"
+                        [value]="value" *ngIf="!(reportsDataList.length>0) ; else notFound">
+                        </mat-progress-spinner> -->
+                    <!-- <div *ngIf="active">
+                                <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+                        </div> -->
+                    <!-- <spinner name="mySpinner"></spinner> -->
+
+                    <!-- <ngx-spinner *ngIf="reportsDataList.length<0" bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+                        <p style="font-size: 20px; color: white">Loading...</p>
+                    </ngx-spinner> -->
+                    <!-- <ngx-spinner></ngx-spinner> -->
+
+
                     <table class="table table-striped b-t b-light">
                         <thead>
                             <tr>
@@ -68,6 +89,9 @@
 
                     </table>
                 </div>
+                <ng-template #noData>
+                    <p>No Data available </p>
+                </ng-template>
             </div>
 
         </div>
